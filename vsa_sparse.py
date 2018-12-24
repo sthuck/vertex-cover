@@ -21,10 +21,15 @@ def zero_vertex(graph: np.ndarray, vertex: int):
     graph[:, vertex] = 0
 
 
+def build_sparse(graph):
+    return sp.csc_matrix(graph)
+
+
 # TODO: Benchmark
 # np.argwhere(graph == np.amax(graph))
 def vsa_select_vertex(graph: np.ndarray):
-    sparse = sp.csc_matrix(graph)
+    sparse = build_sparse(graph)
+
     vertex_degree_vector = all_vertex_degree(sparse)
     vertex_support_vector = vertex_support_all(sparse, vertex_degree_vector)
 
@@ -54,7 +59,7 @@ def vsa(graph: np.ndarray):
     support_group = []
     i = 0
     while not is_empty_graph(graph):
-        i = i +1
+        i = i + 1
         if i % 100 == 0:
             print(i)
         selected_vertex = vsa_select_vertex(graph)

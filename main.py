@@ -1,5 +1,5 @@
 from graph_utils import *
-from vsa import vsa
+from vsa_sparse_v2 import vsa
 import time
 
 
@@ -11,11 +11,13 @@ def simple_becnh(fn):
 
 
 def main():
-    graph = random_graph(3000, 0.1)
+    graph = random_graph(5000, 0.0005)
     np_graph = graph_to_numpy(graph)
     vertices = vsa(np_graph)
     # write_to_file('out.svg', graph, vertices)
-    print(vertices)
+    # write_to_graphml(graph, vertices)
+
+    # print(vertices)
     print('length:', len(vertices))
 
 
