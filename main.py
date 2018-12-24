@@ -11,9 +11,19 @@ def simple_becnh(fn):
 
 
 def main():
-    graph = random_graph(5000, 0.0005)
-    np_graph = graph_to_numpy(graph)
+    # Input
+
+    # random graph:
+    # graph = random_graph(5000, 0.0005)
+    # np_graph = graph_to_numpy(graph)
+
+    # read dimacs:
+    (graph, np_graph) = read_dimacs('example-graph/brock200_4.clq')
+    print(np_graph)
+    # Algorithm
     vertices = vsa(np_graph)
+
+    # Output
     # write_to_file('out.svg', graph, vertices)
     # write_to_graphml(graph, vertices)
 
