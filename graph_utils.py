@@ -1,7 +1,8 @@
-from igraph import Graph
+from igraph import Graph, ADJ_UNDIRECTED
 from igraph.drawing import plot
 import numpy as np
 import re
+
 
 # graph.write('output.graphml', format='graphml')
 # layout = graph.layout_grid(width=10, height=10, dim=3)
@@ -42,18 +43,22 @@ def graph_to_numpy(graph: Graph):
 def read_dimacs(filename: str):
     with open(filename) as fp:
         for cnt, line in enumerate(fp):
-            if re.search(r'^e (\d*) (\d*) .*', line):
-                match = re.search(r'^e (\d*) (\d*) .*', line)
-                source = int(match(1))
-                dest = int(match(2))
-                matrix[source, dest] = 1
-                matrix[dest, source] = 1
+            if re.search(r'^e (\d*) (\d*).*', line):
+                match = re.search(r'^e (\d*) (\d*).*', line)
+                source = int(match.group(1))  # dimacs are not 0-index
+                dest = int(match.group(2))
+                matrix[source - 1, dest - 1] = 1
+                matrix[dest - 1, source - 1] = 1
             elif re.search('^c .*', line):
                 pass
             elif re.search(r'^p edge (\d*) .*', line):
                 match = re.search(r'^p edge (\d*) .*', line)
                 vertices_num = int(match.group(1))
-                matrix = np.zeros((vertices_num, vertices_num))
+                matrix = np.zeros((vertices_num, vertices_num), dtype=np.byte)
+    reverse_matrix = np.ones_like(matrix) - matrix
 
-    graph = Graph.Adjacency(matrix.tolist())
-    return (graph, matrix)
+    for i in range(len(reverse_matrix)):
+        reverse_matrix[i, i] = 0
+
+    graph = Graph.Adjacency(reverse_matrix.tolist(), mode=ADJ_UNDIRECTED)
+    return graph, reverse_matrix

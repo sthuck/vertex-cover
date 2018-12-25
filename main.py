@@ -1,5 +1,5 @@
 from graph_utils import *
-from vsa_sparse_v2 import vsa
+from vsa import vsa
 import time
 
 
@@ -14,12 +14,11 @@ def main():
     # Input
 
     # random graph:
-    # graph = random_graph(5000, 0.0005)
+    # graph = random_graph(10, 0.5)
     # np_graph = graph_to_numpy(graph)
 
     # read dimacs:
-    (graph, np_graph) = read_dimacs('example-graph/brock200_4.clq')
-    print(np_graph)
+    (graph, np_graph) = read_dimacs('./example-graph/brock200_1.clq')
     # Algorithm
     vertices = vsa(np_graph)
 
