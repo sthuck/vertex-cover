@@ -1,5 +1,8 @@
 from graph_utils import *
-from vsa import vsa
+from alogrithms.vsa import vsa
+from alogrithms.vsa_by_min import vsa_by_min
+from alogrithms.shaked_algo import shaked_algo
+from alogrithms.degree import degree
 import time
 
 
@@ -11,23 +14,31 @@ def simple_becnh(fn):
 
 
 def main():
-    # Input
+    # Definition
+    n = 20
+    p = 0.2
+    # All options: vsa, vsa_by_min, shaked_algo, degree
+    algorithm = degree
 
     # random graph:
-    # graph = random_graph(10, 0.5)
-    # np_graph = graph_to_numpy(graph)
+    graph = random_graph(n, p)
+    np_graph = graph_to_numpy(graph)
 
     # read dimacs:
-    (graph, np_graph) = read_dimacs('./example-graph/brock200_1.clq')
+    # (graph, np_graph) = read_dimacs('./example-graph/brock200_4.clq')
+
     # Algorithm
-    vertices = vsa(np_graph)
+    result = algorithm(np_graph)
 
-    # Output
-    # write_to_file('out.svg', graph, vertices)
-    # write_to_graphml(graph, vertices)
+    if algorithm.__name__ == 'shaked_algo':
+        print('shaked_algo, E:', result)
+    else:
+        vertices = result
+        write_to_file('out.svg', graph, vertices)
+        write_to_graphml(graph, vertices)
 
-    # print(vertices)
-    print('length:', len(vertices))
+        print(vertices)
+        print('length:', len(vertices))
 
 
 if __name__ == '__main__':

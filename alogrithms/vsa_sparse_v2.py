@@ -57,7 +57,7 @@ def is_empty_graph(graph: sp.lil_matrix):
 
 def vsa(graph: np.ndarray):
     sparse = build_sparse(graph)
-    support_group = []
+    cover_group = []
     i = 0
     while not is_empty_graph(sparse):
         i = i + 1
@@ -65,5 +65,5 @@ def vsa(graph: np.ndarray):
             print(i)
         selected_vertex = vsa_select_vertex(sparse)
         zero_vertex(sparse, selected_vertex)
-        support_group.append(selected_vertex)
-    return support_group
+        cover_group.append(selected_vertex)
+    return cover_group

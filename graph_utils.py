@@ -2,7 +2,7 @@ from igraph import Graph, ADJ_UNDIRECTED
 from igraph.drawing import plot
 import numpy as np
 import re
-
+import sys
 
 # graph.write('output.graphml', format='graphml')
 # layout = graph.layout_grid(width=10, height=10, dim=3)
@@ -11,6 +11,11 @@ import re
 
 def random_graph(n, p):
     graph: Graph = Graph.Erdos_Renyi(n, p)
+    return graph
+
+
+def random_graph_by_edges(n, e):
+    graph: Graph = Graph.Erdos_Renyi(n, m=e)
     return graph
 
 
@@ -33,6 +38,9 @@ def write_to_file(file_name: str, graph: Graph, vertices):
 def graph_to_numpy(graph: Graph):
     n = graph.vcount()
     a = np.zeros((n, n), dtype=np.byte)
+    if len(graph.get_edgelist()) == 0:
+        print('got empty graph, no edges')
+        sys.exit(-1)
     rows, cols = zip(*graph.get_edgelist())
     a[rows, cols] = 1
     a[cols, rows] = 1
@@ -55,6 +63,7 @@ def read_dimacs(filename: str):
                 match = re.search(r'^p edge (\d*) .*', line)
                 vertices_num = int(match.group(1))
                 matrix = np.zeros((vertices_num, vertices_num), dtype=np.byte)
+
     reverse_matrix = np.ones_like(matrix) - matrix
 
     for i in range(len(reverse_matrix)):

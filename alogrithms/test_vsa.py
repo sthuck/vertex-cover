@@ -1,11 +1,9 @@
-import pytest
 import igraph
 from numpy.testing import assert_equal
 from numpy import array as nd
 import graph_utils
-import random
 
-import vsa
+from alogrithms import vsa
 
 
 def test_degree():
