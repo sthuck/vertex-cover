@@ -5,7 +5,7 @@ from alogrithms.vsa import vsa
 from alogrithms.vsa_by_min import vsa_by_min
 from alogrithms.degree import degree
 from alogrithms.shaked_algo_impl import shaked_algo_impl
-
+from alogrithms.xyz import xyz_algo
 
 
 def simple_becnh(fn):
@@ -101,7 +101,7 @@ def main():
 
     ]
     # ALL: algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl]
-    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl]
+    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo]
 
     # End Definitions
     # results = {file: {algo.__name__: 0 for algo in algorithms} for file in filenames}
