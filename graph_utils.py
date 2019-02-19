@@ -1,8 +1,11 @@
 from igraph import Graph, ADJ_UNDIRECTED
 from igraph.drawing import plot
+from typing import List
 import numpy as np
 import re
 import sys
+import csv
+
 
 # graph.write('output.graphml', format='graphml')
 # layout = graph.layout_grid(width=10, height=10, dim=3)
@@ -48,7 +51,7 @@ def graph_to_numpy(graph: Graph):
     return a
 
 
-def read_dimacs(filename: str):
+def read_dimacs(filename: str, reverse=False):
     with open(filename) as fp:
         for cnt, line in enumerate(fp):
             if re.search(r'^e (\d*) (\d*).*', line):
@@ -64,10 +67,32 @@ def read_dimacs(filename: str):
                 vertices_num = int(match.group(1))
                 matrix = np.zeros((vertices_num, vertices_num), dtype=np.byte)
 
-    reverse_matrix = np.ones_like(matrix) - matrix
+    if reverse:
+        reverse_matrix = np.ones_like(matrix) - matrix
 
-    for i in range(len(reverse_matrix)):
-        reverse_matrix[i, i] = 0
+        for i in range(len(reverse_matrix)):
+            reverse_matrix[i, i] = 0
 
-    graph = Graph.Adjacency(reverse_matrix.tolist(), mode=ADJ_UNDIRECTED)
-    return graph, reverse_matrix
+        matrix = reverse_matrix
+
+    graph = Graph.Adjacency(matrix.tolist(), mode=ADJ_UNDIRECTED)
+    return graph, matrix
+
+
+def graph_stats(graph: np.ndarray):
+    degree_vertex: np.ndarray = graph.sum(axis=0)
+    min_degree = degree_vertex.min()
+    max_degree = degree_vertex.max()
+    average_degree = degree_vertex.sum() / len(degree_vertex)
+    how_many_leaves = np.count_nonzero(degree_vertex == 1)
+    return {'Minimum Degree': min_degree, 'Max Degree': max_degree,
+            'Average Degree': average_degree, 'Num of leaves': how_many_leaves}
+
+
+def write_csv_stats(stats: List[dict]):
+    with open('stats.csv', 'w', newline='') as csvfile:
+        fieldnames = stats[0].keys()
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        writer.writerows(stats)

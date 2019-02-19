@@ -3,6 +3,7 @@ from alogrithms.vsa import vsa
 from alogrithms.vsa_by_min import vsa_by_min
 from alogrithms.shaked_algo import shaked_algo
 from alogrithms.degree import degree
+from alogrithms.xyzV2 import xyz_v2_algo
 import time
 
 
@@ -18,7 +19,7 @@ def main():
     n = 20
     p = 0.2
     # All options: vsa, vsa_by_min, shaked_algo, degree
-    algorithm = degree
+    algorithm = xyz_v2_algo
 
     # random graph:
     graph = random_graph(n, p)

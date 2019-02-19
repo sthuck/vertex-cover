@@ -30,6 +30,9 @@ def build_sparse(graph):
 def vsa_select_vertex(graph: sp.lil_matrix):
     sparse = graph.tocsr()
 
+    if is_empty_graph(sparse):
+        return None
+
     vertex_degree_vector = all_vertex_degree(sparse)
     vertex_support_vector = vertex_support_all(sparse, vertex_degree_vector)
 
@@ -58,12 +61,14 @@ def is_empty_graph(graph: sp.lil_matrix):
 def vsa(graph: np.ndarray):
     sparse = build_sparse(graph)
     cover_group = []
-    i = 0
-    while not is_empty_graph(sparse):
-        i = i + 1
-        if i % 100 == 0:
-            print(i)
+    # i = 0
+    while True:
+        # i = i + 1
+        # if i % 100 == 0:
+        #     print(i)
         selected_vertex = vsa_select_vertex(sparse)
+        if selected_vertex is None:
+            break
         zero_vertex(sparse, selected_vertex)
         cover_group.append(selected_vertex)
     return cover_group
