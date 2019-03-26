@@ -22,11 +22,11 @@ def main():
     algorithm = xyz_v2_algo
 
     # random graph:
-    graph = random_graph(n, p)
-    np_graph = graph_to_numpy(graph)
+    # graph = random_graph(n, p)
+    # np_graph = graph_to_numpy(graph)
 
     # read dimacs:
-    # (graph, np_graph) = read_dimacs('./example-graph/brock200_4.clq')
+    (graph, np_graph) = read_dimacs('./example-graph/johnson8-2-4.clq')
 
     # Algorithm
     result = algorithm(np_graph)
@@ -40,6 +40,8 @@ def main():
 
         print(vertices)
         print('length:', len(vertices))
+        is_legal = check_if_legal_vertex_cover(graph_to_numpy(graph), result)
+        print('Checking if we got a valid vertex cover...', 'YES' if is_legal else 'NO')
 
 
 if __name__ == '__main__':

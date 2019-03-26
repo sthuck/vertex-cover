@@ -1,7 +1,6 @@
 import igraph
 from numpy.testing import assert_equal, assert_array_almost_equal
 from graph_utils import *
-import pytest
 
 from alogrithms import xyzV2
 from alogrithms import xyz
@@ -75,7 +74,6 @@ def test_get_leaf_parent():
     assert_equal(xyzV2.get_parent_of_leaf(graph, 3), 4)
 
 
-@pytest.mark.focus
 def test_xyz_and_v2_impl_equal():
     new_graph = graph_to_numpy(random_graph(100, 0.1))
     result1 = xyz.xyz_algo(new_graph.copy())
