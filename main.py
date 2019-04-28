@@ -26,8 +26,9 @@ def main():
     # np_graph = graph_to_numpy(graph)
 
     # read dimacs:
-    (graph, np_graph) = read_dimacs('./example-graph/johnson8-2-4.clq')
+    (graph, np_graph) = read_dimacs('./example-graph/johnson8-2-4.clq', reverse=True)
 
+    print('Number of parents of leaves', count_parents_of_leaves(graph))
     # Algorithm
     result = algorithm(np_graph, graph)
 
