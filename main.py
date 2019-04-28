@@ -1,13 +1,13 @@
 from graph_utils import *
-from alogrithms.vsa import vsa
-from alogrithms.vsa_by_min import vsa_by_min
-from alogrithms.shaked_algo import shaked_algo
-from alogrithms.degree import degree
-from alogrithms.xyzV2 import xyz_v2_algo
+from algorithms.vsa import vsa
+from algorithms.vsa_by_min import vsa_by_min
+from algorithms.shaked_algo import shaked_algo
+from algorithms.degree import degree
+from algorithms.xyzV2 import xyz_v2_algo
 import time
 
 
-def simple_becnh(fn):
+def simple_bench(fn):
     start = time.time()
     fn()
     end = time.time()
@@ -29,7 +29,7 @@ def main():
     (graph, np_graph) = read_dimacs('./example-graph/johnson8-2-4.clq')
 
     # Algorithm
-    result = algorithm(np_graph)
+    result = algorithm(np_graph, graph)
 
     if algorithm.__name__ == 'shaked_algo':
         print('shaked_algo, E:', result)
@@ -45,4 +45,4 @@ def main():
 
 
 if __name__ == '__main__':
-    simple_becnh(main)
+    simple_bench(main)

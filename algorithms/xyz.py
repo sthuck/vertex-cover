@@ -56,7 +56,7 @@ def is_empty_graph(graph: sp.lil_matrix):
     return graph.count_nonzero() == 0
 
 
-def xyz_algo(graph: np.ndarray):
+def xyz_algo(graph: np.ndarray, *args):
     sparse = build_sparse(graph)
     cover_group = []
 

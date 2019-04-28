@@ -2,8 +2,8 @@ import igraph
 from numpy.testing import assert_equal, assert_array_almost_equal
 from graph_utils import *
 
-from alogrithms import xyzV2
-from alogrithms import xyz
+from algorithms import xyzV2
+from algorithms import xyz
 
 
 graph = xyzV2.build_sparse(graph_to_numpy(igraph.Graph(n=5, edges=[(0, 2), (1, 2), (3, 4), (4, 1)])))
@@ -59,7 +59,7 @@ def test_is_empty():
     assert_equal(xyzV2.is_empty_graph(xyzV2.build_sparse([0, 0, 1, 0, 0])), False)
 
 
-# TEST UNIQE FOX XYZ V2
+# TEST UNIQUE FOX XYZ V2
 
 def test_find_leaves():
     assert_equal(xyzV2.get_all_leaves(graph), [0, 3])

@@ -3,7 +3,7 @@ from numpy.testing import assert_equal
 from numpy import array as nd
 import graph_utils
 
-from alogrithms import vsa
+from algorithms import vsa
 
 
 def test_degree():

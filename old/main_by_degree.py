@@ -1,6 +1,6 @@
 from graph_utils import *
 import time
-from alogrithms.degree import degree
+from algorithms.degree import degree
 
 
 def simple_becnh(fn):

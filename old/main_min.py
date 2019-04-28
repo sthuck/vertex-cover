@@ -1,5 +1,5 @@
 from graph_utils import *
-from alogrithms.vsa_by_min import vsa_by_min
+from algorithms.vsa_by_min import vsa_by_min
 import time
 
 

@@ -19,7 +19,7 @@ def select_vertex(graph: np.ndarray):
     return np.argmax(degree_vector)
 
 
-def degree(graph: np.ndarray):
+def degree(graph: np.ndarray, *args):
     cover_group = []
     while not is_empty_graph(graph):
         selected_vertex = select_vertex(graph)

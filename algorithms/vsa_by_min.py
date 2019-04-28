@@ -50,7 +50,7 @@ def is_empty_graph(graph: np.ndarray):
     return not graph.any()
 
 
-def vsa_by_min(graph: np.ndarray):
+def vsa_by_min(graph: np.ndarray, *args):
     cover_group = []
     while not is_empty_graph(graph):
         selected_vertex = vsa_select_vertex(graph)

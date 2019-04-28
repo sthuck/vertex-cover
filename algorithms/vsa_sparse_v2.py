@@ -16,19 +16,22 @@ def vertex_support_all(graph: sp.csr_matrix, degree_vector=None):
     return (degrees * graph).A[0]
 
 
-def zero_vertex(graph: np.ndarray, vertex: int):
+def zero_vertex(graph: sp.lil_matrix, vertex: int):
     graph[vertex] = 0
     graph[:, vertex] = 0
 
 
 def build_sparse(graph):
-    return sp.csc_matrix(graph)
+    return sp.lil_matrix(graph)
 
 
 # TODO: Benchmark
 # np.argwhere(graph == np.amax(graph))
-def vsa_select_vertex(graph: np.ndarray):
-    sparse = build_sparse(graph)
+def vsa_select_vertex(graph: sp.lil_matrix):
+    sparse = graph.tocsr()
+
+    if is_empty_graph(sparse):
+        return None
 
     vertex_degree_vector = all_vertex_degree(sparse)
     vertex_support_vector = vertex_support_all(sparse, vertex_degree_vector)
@@ -51,18 +54,21 @@ def vsa_select_vertex(graph: np.ndarray):
         return largest_degree_index
 
 
-def is_empty_graph(graph: np.ndarray):
-    return not graph.any()
+def is_empty_graph(graph: sp.lil_matrix):
+    return graph.count_nonzero() == 0
 
 
-def vsa(graph: np.ndarray):
+def vsa(graph: np.ndarray, *args):
+    sparse = build_sparse(graph)
     cover_group = []
-    i = 0
-    while not is_empty_graph(graph):
-        i = i + 1
-        if i % 100 == 0:
-            print(i)
-        selected_vertex = vsa_select_vertex(graph)
-        zero_vertex(graph, selected_vertex)
+    # i = 0
+    while True:
+        # i = i + 1
+        # if i % 100 == 0:
+        #     print(i)
+        selected_vertex = vsa_select_vertex(sparse)
+        if selected_vertex is None:
+            break
+        zero_vertex(sparse, selected_vertex)
         cover_group.append(selected_vertex)
     return cover_group

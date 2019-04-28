@@ -32,7 +32,7 @@ def is_empty_graph(graph: np.ndarray):
     return not graph.any()
 
 
-def shaked_algo_impl(graph: np.ndarray):
+def shaked_algo_impl(graph: np.ndarray, *args):
     cover_group = []
     while not is_empty_graph(graph):
         selected_vertex = select_vertex(graph)

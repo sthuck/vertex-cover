@@ -1,6 +1,6 @@
 from graph_utils import *
 import time
-from alogrithms.shaked_algo import shaked_algo
+from algorithms.shaked_algo import shaked_algo
 
 
 def simple_becnh(fn):

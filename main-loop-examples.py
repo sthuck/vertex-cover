@@ -1,12 +1,13 @@
 from graph_utils import *
 import time
-from alogrithms.shaked_algo import shaked_algo
-from alogrithms.vsa import vsa
-from alogrithms.vsa_by_min import vsa_by_min
-from alogrithms.degree import degree
-from alogrithms.shaked_algo_impl import shaked_algo_impl
-from alogrithms.xyz import xyz_algo
-from alogrithms.xyzV2 import xyz_v2_algo
+from algorithms.shaked_algo import shaked_algo
+from algorithms.vsa import vsa
+from algorithms.vsa_by_min import vsa_by_min
+from algorithms.degree import degree
+from algorithms.shaked_algo_impl import shaked_algo_impl
+from algorithms.xyz import xyz_algo
+from algorithms.xyzV2 import xyz_v2_algo
+from algorithms.neighbors import neighbors_algo
 
 
 def simple_becnh(fn):
@@ -102,7 +103,7 @@ def main():
 
     ]
     # ALL: algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl]
-    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo]
+    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, neighbors_algo]
 
     # End Definitions
     # results = {file: {algo.__name__: 0 for algo in algorithms} for file in filenames}
@@ -110,16 +111,17 @@ def main():
     all_graph_stats = []
 
     for file in filenames:
-        (graph, np_graph) = read_dimacs("./example-graph/" + file)
+        (graph, np_graph) = read_dimacs("./example-graph/" + file, reverse=True)
 
         stats = graph_stats(np_graph)
         stats.update({'Graph name': file, 'Edges Num': len(graph.es), 'Vertex Num': len(graph.vs)})
+        stats.update({'parents of leaves': count_parents_of_leaves(graph)})
 
         print('graph:', file, '   number of edges:', len(graph.es))
         np_graph = graph_to_numpy(graph)
         for algorithm in algorithms:
             np_graph_copy = np.copy(np_graph)
-            result = algorithm(np_graph_copy)
+            result = algorithm(np_graph_copy, graph)
             if isinstance(result, list):
                 # results[file][algorithm.__name__] = len(result)
                 print(algorithm.__name__, '::', len(result))
@@ -137,7 +139,6 @@ def main():
         print("#####\n\n")
 
     write_csv_stats(all_graph_stats)
-
 
 
 if __name__ == '__main__':

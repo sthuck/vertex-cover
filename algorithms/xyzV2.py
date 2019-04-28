@@ -69,7 +69,7 @@ def get_parent_of_leaf(graph: sp.lil_matrix, leaf_index: int):
     return possible_parent[0] if len(possible_parent) == 1 else None
 
 
-def xyz_v2_algo(graph: np.ndarray):
+def xyz_v2_algo(graph: np.ndarray, *args):
     sparse = build_sparse(graph)
     cover_group = set()
 
