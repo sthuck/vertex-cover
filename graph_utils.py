@@ -107,12 +107,12 @@ def check_if_legal_vertex_cover(graph: np.ndarray, vertex_cover: List[int]):
     return True
 
 
-def all_neighbors_rank_1(v: Vertex):
+def any_neighbors_rank_1(v: Vertex):
     return any([n.degree() == 1 for n in v.neighbors()])
 
 
 def count_parents_of_leaves(graph: Graph):
-    parents_degree_1 = [v for v in graph.vs if v.degree() == 1 and all_neighbors_rank_1(v)]
-    parents = [v for v in graph.vs if v.degree() > 1 and all_neighbors_rank_1(v)]
+    parents_degree_1 = [v for v in graph.vs if v.degree() == 1 and any_neighbors_rank_1(v)]
+    parents = [v for v in graph.vs if v.degree() > 1 and any_neighbors_rank_1(v)]
     assert len(parents_degree_1) % 2 == 0, "Number of parents with degree 1 must be even!"
     return len(parents) + len(parents_degree_1) / 2

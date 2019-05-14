@@ -8,6 +8,7 @@ from algorithms.shaked_algo_impl import shaked_algo_impl
 from algorithms.xyz import xyz_algo
 from algorithms.xyzV2 import xyz_v2_algo
 from algorithms.neighbors import neighbors_algo
+from algorithms.xyz_larger_diff import xyz_larger_diff_algo
 
 
 def simple_becnh(fn):
@@ -19,12 +20,12 @@ def simple_becnh(fn):
 
 def main():
     # Definitions
-    n = 200
-    p = 0.01
+    n = 1000
+    p = 0.005
     e = 8
-    iterations = 20
+    iterations = 10
     # ALL: algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl]
-    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, neighbors_algo]
+    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, neighbors_algo]
 
     # End Definitions
     results = {algo.__name__: np.zeros(iterations) for algo in algorithms}

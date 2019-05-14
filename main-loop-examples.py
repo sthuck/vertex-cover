@@ -8,6 +8,7 @@ from algorithms.shaked_algo_impl import shaked_algo_impl
 from algorithms.xyz import xyz_algo
 from algorithms.xyzV2 import xyz_v2_algo
 from algorithms.neighbors import neighbors_algo
+from algorithms.xyz_larger_diff import xyz_larger_diff_algo
 
 
 def simple_becnh(fn):
@@ -25,9 +26,9 @@ def main():
         # "brock200_3.clq",
         # "brock200_4.clq",
         # "brock400_1.clq",
-        "brock400_2.clq",
-        "brock400_3.clq",
-        "brock400_4.clq",
+        # "brock400_2.clq",
+        # "brock400_3.clq",
+        # "brock400_4.clq",
         # "brock800_1.clq",
         # "brock800_2.clq",
         # "brock800_3.clq",
@@ -46,7 +47,7 @@ def main():
         # "C250.9.clq",
         # "C4000.5.clq",
         # "C500.9.clq",
-        # "DSJC1000_5.clq",
+        #  "DSJC1000_5.clq",
         # "DSJC500_5.clq",
         # "gen200_p0.9_44.clq",
         # "gen200_p0.9_55.clq",
@@ -70,7 +71,7 @@ def main():
         # "MANN_a45.clq",
         # "MANN_a81.clq",
         # "MANN_a9.clq",
-        # "p_hat1000-1.clq",
+        #  "p_hat1000-1.clq",
         # "p_hat1000-2.clq",
         # "p_hat1000-3.clq",
         # "p_hat1500-1.clq",
@@ -83,7 +84,7 @@ def main():
         # "p_hat500-2.clq",
         # "p_hat500-3.clq",
         # "p_hat700-1.clq",
-        # "p_hat700-2.clq",
+        "p_hat700-2.clq",
         # "p_hat700-3.clq",
         # "san1000.clq",
         # "san200_0.7_1.clq",
@@ -103,7 +104,7 @@ def main():
 
     ]
     # ALL: algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl]
-    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, neighbors_algo]
+    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, neighbors_algo]
 
     # End Definitions
     # results = {file: {algo.__name__: 0 for algo in algorithms} for file in filenames}
