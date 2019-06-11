@@ -15,7 +15,7 @@ c Generation parameters:
 c 	n =    300 a =  0.00  b =  1.00  Expected density =  0.50
 c	Seed =       8713       Real density =  0.489
 c
-p edge  300     21928	
+p edge 300 21928
 e 4 3
 e 5 1
 e 5 2

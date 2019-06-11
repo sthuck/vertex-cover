@@ -25,8 +25,8 @@ def main():
     p = 0.04
     e = 8
     iterations = 5
-    # ALL: algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl]
-    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
+    # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
+    algorithms = [ xyz_algo, neighbors_algo]
 
     # End Definitions
     results = {algo.__name__: np.zeros(iterations) for algo in algorithms}

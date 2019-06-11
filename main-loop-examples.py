@@ -80,12 +80,12 @@ def main():
         # "p_hat1500-3.clq",
         # "p_hat300-1.clq",
         # "p_hat300-2.clq",
-        # "p_hat300-3.clq",
+        "p_hat300-3.clq",
         # "p_hat500-1.clq",
         # "p_hat500-2.clq",
         # "p_hat500-3.clq",
         # "p_hat700-1.clq",
-        "p_hat700-2.clq",
+        # "p_hat700-2.clq",
         # "p_hat700-3.clq",
         # "san1000.clq",
         # "san200_0.7_1.clq",
@@ -144,10 +144,9 @@ def main():
         # "frb/frb59-26-4.mis",
         # "frb/frb59-26-5.mis"
 
-
     ]
-    # ALL: algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl]
-    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
+    # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
+    algorithms = [xyz_algo, neighbors_algo]
 
     # End Definitions
     # results = {file: {algo.__name__: 0 for algo in algorithms} for file in filenames}
