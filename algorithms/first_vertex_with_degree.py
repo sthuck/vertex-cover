@@ -24,7 +24,7 @@ def set_name(graph: Graph):
         v['name'] = v.index
 
 
-def neighbors_algo(_, orig: Graph):
+def first_vertex_with_degree_algo(_, orig: Graph):
     cover_group = []
     graph = orig.copy()
     set_name(graph)

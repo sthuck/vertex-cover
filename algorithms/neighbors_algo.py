@@ -37,7 +37,7 @@ def set_name(graph: Graph):
         v['name'] = v.index
 
 
-def new_algo(_, orig: Graph):
+def neighbors_algo(_, orig: Graph):
     cover_group = []
     graph: Graph = orig.copy()
     set_name(graph)

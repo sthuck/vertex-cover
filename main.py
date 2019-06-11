@@ -4,7 +4,7 @@ from algorithms.vsa_by_min import vsa_by_min
 from algorithms.shaked_algo import shaked_algo
 from algorithms.degree import degree
 from algorithms.xyzV2 import xyz_v2_algo
-from algorithms.new_algo import new_algo
+from algorithms.neighbors_algo import neighbors_algo
 import time
 
 

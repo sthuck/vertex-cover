@@ -7,9 +7,9 @@ from algorithms.degree import degree
 from algorithms.shaked_algo_impl import shaked_algo_impl
 from algorithms.xyz import xyz_algo
 from algorithms.xyzV2 import xyz_v2_algo
-from algorithms.neighbors import neighbors_algo
+from algorithms.first_vertex_with_degree import first_vertex_with_degree_algo
 from algorithms.xyz_larger_diff import xyz_larger_diff_algo
-from algorithms.new_algo import new_algo
+from algorithms.neighbors_algo import neighbors_algo
 
 
 def simple_becnh(fn):
@@ -147,7 +147,7 @@ def main():
 
     ]
     # ALL: algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl]
-    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, neighbors_algo, new_algo]
+    algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
 
     # End Definitions
     # results = {file: {algo.__name__: 0 for algo in algorithms} for file in filenames}
