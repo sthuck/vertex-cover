@@ -113,3 +113,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+stats.csv
+.idea
+out.svg
+output.graphml
