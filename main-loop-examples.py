@@ -10,6 +10,7 @@ from algorithms.xyzV2 import xyz_v2_algo
 from algorithms.first_vertex_with_degree import first_vertex_with_degree_algo
 from algorithms.xyz_larger_diff import xyz_larger_diff_algo
 from algorithms.neighbors_algo import neighbors_algo
+from algorithms.xyz_neighbors_combined import xyz_neighbors_combined_algo
 
 
 def simple_becnh(fn):
@@ -22,18 +23,18 @@ def simple_becnh(fn):
 def main():
     # Definitions
     filenames = [
-        # "brock200_1.clq",
-        # "brock200_2.clq",
-        # "brock200_3.clq",
-        # "brock200_4.clq",
-        # "brock400_1.clq",
-        # "brock400_2.clq",
-        # "brock400_3.clq",
-        # "brock400_4.clq",
-        # "brock800_1.clq",
-        # "brock800_2.clq",
-        # "brock800_3.clq",
-        # "brock800_4.clq",
+        "brock200_1.clq",
+        "brock200_2.clq",
+        "brock200_3.clq",
+        "brock200_4.clq",
+        "brock400_1.clq",
+        "brock400_2.clq",
+        "brock400_3.clq",
+        "brock400_4.clq",
+        "brock800_1.clq",
+        "brock800_2.clq",
+        "brock800_3.clq",
+        "brock800_4.clq",
         # "c-fat200-1.clq",
         # "c-fat200-2.clq",
         # "c-fat200-5.clq",
@@ -80,7 +81,7 @@ def main():
         # "p_hat1500-3.clq",
         # "p_hat300-1.clq",
         # "p_hat300-2.clq",
-        "p_hat300-3.clq",
+        # "p_hat300-3.clq",
         # "p_hat500-1.clq",
         # "p_hat500-2.clq",
         # "p_hat500-3.clq",
@@ -88,16 +89,16 @@ def main():
         # "p_hat700-2.clq",
         # "p_hat700-3.clq",
         # "san1000.clq",
-        # "san200_0.7_1.clq",
-        # "san200_0.7_2.clq",
-        # "san200_0.9_1.clq",
-        # "san200_0.9_2.clq",
-        # "san200_0.9_3.clq",
-        # "san400_0.5_1.clq",
-        # "san400_0.7_1.clq",
-        # "san400_0.7_2.clq",
-        # "san400_0.7_3.clq",
-        # "san400_0.9_1.clq",
+        "san200_0.7_1.clq",
+        "san200_0.7_2.clq",
+        "san200_0.9_1.clq",
+        "san200_0.9_2.clq",
+        "san200_0.9_3.clq",
+        "san400_0.5_1.clq",
+        "san400_0.7_1.clq",
+        "san400_0.7_2.clq",
+        "san400_0.7_3.clq",
+        "san400_0.9_1.clq",
         # "sanr200_0.7.clq",
         # "sanr200_0.9.clq",
         # "sanr400_0.5.clq",
@@ -146,7 +147,7 @@ def main():
 
     ]
     # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [xyz_algo, neighbors_algo]
+    algorithms = [xyz_algo, neighbors_algo, xyz_neighbors_combined_algo]
 
     # End Definitions
     # results = {file: {algo.__name__: 0 for algo in algorithms} for file in filenames}
