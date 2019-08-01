@@ -1,6 +1,7 @@
 from igraph import Graph, Vertex
 from typing import List, Tuple
 
+// insert parents of leaves
 
 def is_empty_graph(graph: Graph):
     return len(graph.es) == 0

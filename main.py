@@ -5,6 +5,7 @@ from algorithms.shaked_algo import shaked_algo
 from algorithms.degree import degree
 from algorithms.xyzV2 import xyz_v2_algo
 from algorithms.neighbors_algo import neighbors_algo
+from algorithms.most_minimal_degree import most_minimal_degree_algo
 import time
 
 
@@ -17,17 +18,17 @@ def simple_bench(fn):
 
 def main():
     # Definition
-    n = 20
-    p = 0.2
+    n = 24
+    p = 0.35
     # All options: vsa, vsa_by_min, shaked_algo, degree
     algorithm = xyz_v2_algo
 
     # random graph:
-    # graph = random_graph(n, p)
-    # np_graph = graph_to_numpy(graph)
+    graph = random_graph(n, p)
+    np_graph = graph_to_numpy(graph)
 
     # read dimacs:
-    (graph, np_graph) = read_dimacs('./example-graph/johnson8-2-4.clq', reverse=True)
+    # (graph, np_graph) = read_dimacs('./example-graph/johnson8-2-4.clq', reverse=True)
 
     print('Number of parents of leaves', count_parents_of_leaves(graph))
     # Algorithm
