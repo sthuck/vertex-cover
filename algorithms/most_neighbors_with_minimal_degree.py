@@ -42,7 +42,7 @@ def select_vertices(graph: Graph) -> int:
             scan_only_indices = maximum_indices
             degree = degree + 1
 
-            if degree > len(graph.vs):  # if degreee > vertex number, just take the first one
+            if degree > len(graph.vs):  # if degree > vertex number, just take the first one
                 index_of_vertex_with_most_neighbours_of_x_degree = maximum_indices[0]
         else:
             index_of_vertex_with_most_neighbours_of_x_degree = maximum_indices[0]
@@ -64,7 +64,7 @@ def set_name(graph: Graph):
         v['name'] = v.index
 
 
-def most_minimal_degree_algo(_, orig: Graph):
+def most_neighbors_with_minimal_degree_algo(_, orig: Graph):
     cover_group = []
     graph: Graph = orig.copy()
     set_name(graph)

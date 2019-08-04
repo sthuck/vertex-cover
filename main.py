@@ -5,7 +5,7 @@ from algorithms.shaked_algo import shaked_algo
 from algorithms.degree import degree
 from algorithms.xyzV2 import xyz_v2_algo
 from algorithms.neighbors_algo import neighbors_algo
-from algorithms.most_minimal_degree import most_minimal_degree_algo
+from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
 import time
 
 
