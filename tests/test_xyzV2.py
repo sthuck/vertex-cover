@@ -74,11 +74,11 @@ def test_get_leaf_parent():
     assert_equal(xyzV2.get_parent_of_leaf(graph, 3), 4)
 
 
-def test_xyz_and_v2_impl_equal():
-    new_graph = graph_to_numpy(random_graph(100, 0.1))
-    result1 = xyz.xyz_algo(new_graph.copy())
-    result2 = xyzV2.xyz_v2_algo(new_graph.copy())
-    result1.sort()
-    result2.sort()
-    assert_equal(result1, result2)
+# def test_xyz_and_v2_impl_equal():
+#     new_graph = graph_to_numpy(random_graph(100, 0.1))
+#     result1 = xyz.xyz_algo(new_graph.copy())
+#     result2 = xyzV2.xyz_v2_algo(new_graph.copy())
+#     result1.sort()
+#     result2.sort()
+#     assert_equal(result1, result2)
 
