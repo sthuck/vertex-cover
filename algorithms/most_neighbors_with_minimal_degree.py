@@ -7,12 +7,10 @@ def is_empty_graph(graph: Graph):
     return len(graph.es) == 0
 
 
-def find_maximum(item_list: List[int], scan_only_indices=None) -> List[int]:
+def find_maximum(item_list: List[Tuple[int, int]]) -> List[int]:
     max_item = None
     maximum_indices = []
-    for index, item in enumerate(item_list):
-        if scan_only_indices is not None and index not in scan_only_indices:
-            continue
+    for index, item in item_list:
         if max_item is None or item > max_item:
             max_item = item
             maximum_indices = [index]
@@ -22,22 +20,24 @@ def find_maximum(item_list: List[int], scan_only_indices=None) -> List[int]:
     return maximum_indices
 
 
-def compute_neighbour_degree_frequency(orig: Graph, vertex: Vertex):
-    degree_vector_for_vertex = [neighbour.degree() for neighbour in vertex.neighbors()]
+def compute_neighbour_degree_frequency(degree_per_vector: List[int], vertex: Vertex):
+    degree_vector_for_vertex = [degree_per_vector[neighbour.index] for neighbour in vertex.neighbors()]
     return Counter(degree_vector_for_vertex)
 
 
 def select_vertices(graph: Graph) -> int:
-    counter_per_vertex = [compute_neighbour_degree_frequency(graph, vertex) for vertex in graph.vs]
+    degree_per_vector = [v.degree() for v in graph.vs]
+    counter_per_vertex = [compute_neighbour_degree_frequency(degree_per_vector, vertex) for vertex in graph.vs]
 
     degree = 1
     index_of_vertex_with_most_neighbours_of_x_degree = None
-    scan_only_indices = None
+    scan_only_indices = [i for i in range(len(graph.vs))]
 
     while index_of_vertex_with_most_neighbours_of_x_degree is None:
-        how_many_neighbours_of_x_degree_per_vertex = [counter[degree] for counter in counter_per_vertex]
+        how_many_neighbours_of_x_degree_per_vertex = \
+            [(index, counter_per_vertex[index][degree]) for index in scan_only_indices]
 
-        maximum_indices = find_maximum(how_many_neighbours_of_x_degree_per_vertex, scan_only_indices)
+        maximum_indices = find_maximum(how_many_neighbours_of_x_degree_per_vertex)
         if len(maximum_indices) > 1:
             scan_only_indices = maximum_indices
             degree = degree + 1

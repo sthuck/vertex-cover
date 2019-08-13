@@ -8,25 +8,17 @@ import graph_utils
 class Test_Most_neighbors_with_minimal_degree_algo(TestCase):
 
     def test_find_maximum(self):
-        item_list = [1, 2, 10]
+        item_list = [(i, v) for (i, v) in enumerate([1, 2, 10])]
         maximum = most_neighbors_with_minimal_degree.find_maximum(item_list)
         assert maximum == [2]
 
-        item_list = [1, 2, 10, 5, 10]
+        item_list = [(i, v) for (i, v) in enumerate([1, 2, 10, 5, 10])]
         maximum = most_neighbors_with_minimal_degree.find_maximum(item_list)
         assert maximum == [2, 4]
 
-        item_list = [1, 2, 10, 5, 10, 10]
+        item_list = [(i, v) for (i, v) in enumerate([1, 2, 10, 5, 10, 10])]
         maximum = most_neighbors_with_minimal_degree.find_maximum(item_list)
         assert maximum == [2, 4, 5]
-
-        item_list = [1, 2, 10, 5, 10, 10]
-        maximum = most_neighbors_with_minimal_degree.find_maximum(item_list, [0, 1, 3])
-        assert maximum == [3]
-
-        item_list = [1, 2, 10, 5, 10, 9]
-        maximum = most_neighbors_with_minimal_degree.find_maximum(item_list, [0, 1, 5])
-        assert maximum == [5]
 
     def test_algorithm(self):
         graph = Graph.Erdos_Renyi(10, 0.3)

@@ -10,6 +10,7 @@ from algorithms.xyzV2 import xyz_v2_algo
 from algorithms.first_vertex_with_degree import first_vertex_with_degree_algo
 from algorithms.xyz_larger_diff import xyz_larger_diff_algo
 from algorithms.neighbors_algo import neighbors_algo
+from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
 
 
 def simple_becnh(fn):
@@ -26,7 +27,7 @@ def main():
     e = 8
     iterations = 5
     # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [ xyz_algo, neighbors_algo]
+    algorithms = [ xyz_algo, neighbors_algo, most_neighbors_with_minimal_degree_algo]
 
     # End Definitions
     results = {algo.__name__: np.zeros(iterations) for algo in algorithms}
