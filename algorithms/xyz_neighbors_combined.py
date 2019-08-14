@@ -67,12 +67,25 @@ def set_name(graph: Graph):
         v['name'] = v.index
 
 
+def find_parents_of_leaves(graph: Graph):
+    all_leaves = [v for v in graph.vs if v.degree() == 1]
+    parents = {leaf.neighbors()[0] for leaf in all_leaves}
+    return [parent['name'] for parent in parents]
+
+
 def xyz_neighbors_combined_algo(_, orig: Graph):
     cover_group = []
     graph: Graph = orig.copy()
     set_name(graph)
 
     while not is_empty_graph(graph):
+        parents = find_parents_of_leaves(graph)
+        zero_vertices(graph, parents)
+        cover_group = cover_group + parents
+
+        if is_empty_graph(graph):
+            break
+
         selected_vertices, vertices_to_zero = select_vertices(graph)
         zero_vertices(graph, selected_vertices + vertices_to_zero)
         cover_group = cover_group + selected_vertices

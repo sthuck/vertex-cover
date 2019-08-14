@@ -74,12 +74,15 @@ def xyz_v2_algo(graph: np.ndarray, *args):
     cover_group = set()
 
     while True:
-        leaves = get_all_leaves(sparse)
-        parents = map(lambda vertex_index: get_parent_of_leaf(sparse, vertex_index), leaves)
-        for parent in parents:
-            if parent is not None:
-                zero_vertex(sparse, parent)
-                cover_group.add(parent)
+        while True:
+            leaves = get_all_leaves(sparse)
+            if len(leaves) == 0:
+                break
+            parents = map(lambda vertex_index: get_parent_of_leaf(sparse, vertex_index), leaves)
+            for parent in parents:
+                if parent is not None:
+                    zero_vertex(sparse, parent)
+                    cover_group.add(parent)
 
         selected_vertex = xyz_select_vertex(sparse)
         if selected_vertex is None:
