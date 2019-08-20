@@ -32,8 +32,15 @@ def find_vertex_with_degree_2_and_disjoint_neighbors(graph: Graph):
         return None
 
 
+def set_name(graph: Graph):
+    for v in graph.vs:
+        v['name'] = f'v{v.index}'
+
+
 def p0003_graph(graph=None):
     graph: Graph = graph or Graph.Erdos_Renyi(1000, 3/1000)
+    set_name(graph)
+
     iteration = 0
     while True:
         parents = find_parents_of_leaves(graph)
@@ -43,15 +50,12 @@ def p0003_graph(graph=None):
         if vertex is None:
             break
 
-        print('vertex', vertex.index)
         neighbors: List[Vertex] = vertex.neighbors()
-        print('neighbors', [n.index for n in neighbors])
-        neighbors_of_neighbors = [n for n in neighbors[0].neighbors() if n.index != vertex.index] + [n for n in neighbors[1].neighbors() if n.index != vertex.index]
-        print('neighbors of neighbort', [n.index for n in neighbors_of_neighbors])
+        neighbors_of_neighbors = [n['name'] for n in neighbors[0].neighbors() if n.index != vertex.index] + [n['name'] for n in neighbors[1].neighbors() if n.index != vertex.index]
         graph.delete_vertices([vertex] + neighbors)
 
-        graph.add_vertex(name=f'iteration{iteration}')
-        new_vertex: Vertex = graph.vs.find(name=f'iteration{iteration}')
+        graph.add_vertex(name=f'new-iteration{iteration}')
+        new_vertex: Vertex = graph.vs.find(name=f'new-iteration{iteration}')
 
         iteration += 1
         for v in neighbors_of_neighbors:
