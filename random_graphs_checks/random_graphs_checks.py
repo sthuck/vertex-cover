@@ -9,14 +9,17 @@ def find_parents_of_leaves(graph: Graph):
     return parents
 
 
-def p0002_graph(graph: Graph):
-    graph: Graph = graph or Graph.Erdos_Renyi(1000, 2/1000, None)
+def p0002_graph(graph: Graph = None):
+    graph: Graph = graph or Graph.Erdos_Renyi(1000, 2/1000)
     while True:
         parents = find_parents_of_leaves(graph)
         if len(parents) == 0:
             break
         graph.delete_vertices(parents)
-    return len(graph.vs)
+
+    components = [c for c in graph.components() if len(c) > 1]
+    result = {'how many components': len(components), 'component_length_vector': [len(c) for c in components]}
+    return result
 
 
 def is_neighbors(graph: Graph, vertices: Tuple[Vertex, Vertex]):
@@ -67,4 +70,5 @@ def p0003_graph(graph=None):
 
 
 if __name__ == '__main__':
+    # print(p0002_graph())
     print(p0003_graph())
