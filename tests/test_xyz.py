@@ -3,19 +3,19 @@ from numpy.testing import assert_equal, assert_array_almost_equal
 from numpy import matrix
 import graph_utils
 
-from algorithms import xyz
+from algorithms.xyz import xyz
 
 graph = xyz.build_sparse(graph_utils.graph_to_numpy(igraph.Graph(n=5, edges=[(0, 2), (1, 2), (3, 4), (4, 1)])))
 expected_degrees = [1, 2, 2, 1, 2]
 
 
 def test_degrees():
-    assert_equal(xyz.all_vertex_degree(graph), matrix(expected_degrees))
+    assert_equal(xyz.all_vertex_degree(graph), expected_degrees)
 
 
 def test_x_vector():
     expected_x = [1 / 2, 2 / 3, 2 / 3, 1 / 2, 2 / 3]
-    assert_equal(xyz.get_x_vector(xyz.all_vertex_degree(graph)), matrix(expected_x))
+    assert_equal(xyz.get_x_vector(xyz.all_vertex_degree(graph)), expected_x)
 
 
 def test_y_vector():
@@ -30,7 +30,7 @@ def test_y_vector():
 
     degree_vector = xyz.all_vertex_degree(graph)
     x_vector = xyz.get_x_vector(degree_vector)
-    assert_array_almost_equal(xyz.get_y_vector(graph, x_vector), matrix(expected_y))
+    assert_array_almost_equal(xyz.get_y_vector(graph, x_vector), expected_y)
 
 
 def test_z_vector():
@@ -50,7 +50,7 @@ def test_z_vector():
     ]
 
     degree_vector = xyz.all_vertex_degree(graph)
-    assert_array_almost_equal(xyz.get_z_vector(graph, degree_vector), matrix(expected_z))
+    assert_array_almost_equal(xyz.get_z_vector(graph, degree_vector), expected_z)
 
 
 def test_is_empty():

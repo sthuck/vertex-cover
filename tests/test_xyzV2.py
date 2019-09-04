@@ -2,9 +2,7 @@ import igraph
 from numpy.testing import assert_equal, assert_array_almost_equal
 from graph_utils import *
 
-from algorithms import xyzV2
-from algorithms import xyz
-
+from algorithms.xyz import xyzV2
 
 graph = xyzV2.build_sparse(graph_to_numpy(igraph.Graph(n=5, edges=[(0, 2), (1, 2), (3, 4), (4, 1)])))
 expected_degrees = [1, 2, 2, 1, 2]

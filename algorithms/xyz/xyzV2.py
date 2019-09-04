@@ -1,23 +1,10 @@
 import numpy as np
 import scipy.sparse as sp
 import scipy
+from .xyz_utils import all_vertex_degree, build_sparse, zero_vertex, is_empty_graph
+from .xyz_common_code import get_x_vector, get_y_vector, get_z_vector
 
 
-def all_vertex_degree(graph: sp.spmatrix):
-    return graph.sum(axis=0).getA()[0]
-
-
-def zero_vertex(graph: sp.lil_matrix, vertex: int):
-    graph[vertex] = 0
-    graph[:, vertex] = 0
-
-
-def build_sparse(graph):
-    return sp.lil_matrix(graph)
-
-
-# TODO: Benchmark
-# np.argwhere(graph == np.amax(graph))
 def xyz_select_vertex(graph: sp.lil_matrix):
     sparse = graph.tocsr()
 
@@ -32,28 +19,6 @@ def xyz_select_vertex(graph: sp.lil_matrix):
 
     diff_vector = z_vector - y_vector
     return diff_vector.argmin()
-
-
-def get_z_vector(sparse, vertex_degree_vector):
-    # take rank and decrease by 1, unless rank is already 0
-    degree_minus_1_vector: scipy.matrix = np.select([vertex_degree_vector > 0, vertex_degree_vector == 0],
-                                                    [vertex_degree_vector - 1,
-                                                     vertex_degree_vector])
-    temp_x_vector = get_x_vector(degree_minus_1_vector)
-    z_vector = (temp_x_vector * sparse) + 1
-    return z_vector
-
-
-def get_y_vector(sparse, x_vector):
-    return (x_vector * sparse) + x_vector
-
-
-def get_x_vector(vertex_degree_vector):
-    return vertex_degree_vector / (vertex_degree_vector + 1)
-
-
-def is_empty_graph(graph: sp.spmatrix):
-    return graph.count_nonzero() == 0
 
 
 def get_all_leaves(graph: sp.lil_matrix):
