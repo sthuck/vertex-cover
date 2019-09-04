@@ -4,7 +4,8 @@ import scipy.sparse as sp
 import numpy
 
 from algorithms.neighbors_algo import compute_t
-from algorithms.xyz import all_vertex_degree, get_x_vector, get_y_vector, get_z_vector
+from algorithms.xyz.xyz_common_code import get_x_vector, get_y_vector, get_z_vector
+from algorithms.xyz.xyz_utils import all_vertex_degree
 
 
 def is_empty_graph(graph: Graph):

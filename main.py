@@ -1,11 +1,5 @@
 from graph_utils import *
-from algorithms.vsa import vsa
-from algorithms.vsa_by_min import vsa_by_min
-from algorithms.shaked_algo import shaked_algo
-from algorithms.degree import degree
-from algorithms.xyzV2 import xyz_v2_algo
-from algorithms.neighbors_algo import neighbors_algo
-from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
+from algorithms.xyz import xyz_v2_algo, xyz_v3_algo
 import time
 
 
@@ -18,10 +12,10 @@ def simple_bench(fn):
 
 def main():
     # Definition
-    n = 24
-    p = 0.35
+    n = 100
+    p = 0.15
     # All options: vsa, vsa_by_min, shaked_algo, degree
-    algorithm = xyz_v2_algo
+    algorithm = xyz_v3_algo
 
     # random graph:
     graph = random_graph(n, p)
@@ -36,6 +30,8 @@ def main():
 
     if algorithm.__name__ == 'shaked_algo':
         print('shaked_algo, E:', result)
+    elif algorithm.__name__ == 'xyz_v3_algo':
+        print('xyz_v3_algo:', len(result[0]) + result[1])
     else:
         vertices = result
         write_to_file('out.svg', graph, vertices)

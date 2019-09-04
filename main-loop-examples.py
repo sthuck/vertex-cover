@@ -1,14 +1,9 @@
 from graph_utils import *
 import time
-from algorithms.shaked_algo import shaked_algo
 from algorithms.vsa import vsa
-from algorithms.vsa_by_min import vsa_by_min
 from algorithms.degree import degree
 from algorithms.shaked_algo_impl import shaked_algo_impl
-from algorithms.xyz import xyz_algo
-from algorithms.xyzV2 import xyz_v2_algo
-from algorithms.first_vertex_with_degree import first_vertex_with_degree_algo
-from algorithms.xyz_larger_diff import xyz_larger_diff_algo
+from algorithms.xyz import xyz_v2_algo, xyz_v3_algo
 from algorithms.neighbors_algo import neighbors_algo
 from algorithms.xyz_neighbors_combined import xyz_neighbors_combined_algo
 from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
@@ -148,10 +143,9 @@ def main():
 
     ]
     # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [xyz_v2_algo, neighbors_algo, xyz_neighbors_combined_algo, most_neighbors_with_minimal_degree_algo, vsa, degree, shaked_algo_impl]
+    algorithms = [xyz_v3_algo, neighbors_algo, xyz_neighbors_combined_algo, most_neighbors_with_minimal_degree_algo, vsa, degree, shaked_algo_impl]
 
     # End Definitions
-    # results = {file: {algo.__name__: 0 for algo in algorithms} for file in filenames}
 
     all_graph_stats = []
 
@@ -167,18 +161,17 @@ def main():
         for algorithm in algorithms:
             np_graph_copy = np.copy(np_graph)
             result = algorithm(np_graph_copy, graph)
-            if isinstance(result, list):
-                # results[file][algorithm.__name__] = len(result)
-                print(algorithm.__name__, '::', len(result))
-                stats.update({algorithm.__name__: len(result)})
+            if algorithm.__name__ == 'xyz_v3_algo':
+                print(algorithm.__name__, '::', len(result[0]) + result[1])
+                stats.update({algorithm.__name__: len(result[0]) + result[1]})
 
-            else:  # for shaked algo
-                # results[file][algorithm.__name__] = result
+            elif algorithm.__name__ == 'shaked_algo':
                 print(algorithm.__name__, '::', result)
                 stats.update({'Sigma D(Vi)/D(Vi)+1': result})
 
-            if algorithm.__name__ == 'xyz_v2_algo':
-                stats.update({'xyz_v2_algo_is_valid': check_if_legal_vertex_cover(np_graph, result)})
+            else:
+                print(algorithm.__name__, '::', len(result))
+                stats.update({algorithm.__name__: len(result)})
 
         all_graph_stats.append(stats)
         print("#####\n\n")
