@@ -41,17 +41,20 @@ def set_name(graph: Graph):
 
 
 def p0003_graph(graph=None):
-    graph: Graph = graph or Graph.Erdos_Renyi(1000, 3/1000)
+    graph: Graph = graph or Graph.Erdos_Renyi(1000, 2/1000)
     set_name(graph)
 
     iteration = 0
     while True:
         parents = find_parents_of_leaves(graph)
+        graph_has_no_leaves = len(parents) == 0
         graph.delete_vertices(parents)
 
         vertex: Vertex = find_vertex_with_degree_2_and_disjoint_neighbors(graph)
-        if vertex is None:
+        if vertex is None and graph_has_no_leaves:
             break
+        elif vertex is None:
+            continue
 
         neighbors: List[Vertex] = vertex.neighbors()
         neighbors_of_neighbors = [n['name'] for n in neighbors[0].neighbors() if n.index != vertex.index] + [n['name'] for n in neighbors[1].neighbors() if n.index != vertex.index]
