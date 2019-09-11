@@ -57,7 +57,7 @@ def p0003_graph(graph=None):
             continue
 
         neighbors: List[Vertex] = vertex.neighbors()
-        neighbors_of_neighbors = [n['name'] for n in neighbors[0].neighbors() if n.index != vertex.index] + [n['name'] for n in neighbors[1].neighbors() if n.index != vertex.index]
+        neighbors_of_neighbors = {n['name'] for n in neighbors[0].neighbors() if n.index != vertex.index}.union({n['name'] for n in neighbors[1].neighbors() if n.index != vertex.index})
         graph.delete_vertices([vertex] + neighbors)
 
         graph.add_vertex(name=f'new-iteration{iteration}')

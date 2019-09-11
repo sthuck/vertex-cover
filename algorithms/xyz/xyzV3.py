@@ -3,6 +3,7 @@ import scipy.sparse as sp
 import scipy
 from .xyz_utils import all_vertex_degree, is_empty_graph as is_empty_graph_sparse
 from .xyz_common_code import get_x_vector, get_y_vector, get_z_vector
+from algorithms.reductions import remove_parents_of_leaves
 from igraph import Graph, Vertex
 from typing import List, Union, Tuple
 
@@ -52,64 +53,6 @@ def set_name(graph: Graph):
 
 def build_sparse(graph: Graph):
     return scipy.sparse.csr_matrix(graph.get_adjacency().data)
-
-
-def find_parents_of_leaves(graph: Graph):
-    all_leaves = [v for v in graph.vs if v.degree() == 1]
-    parents = {leaf.neighbors()[0] for leaf in all_leaves}
-    return parents
-
-
-def remove_parents_of_leaves(graph: Graph) -> List[int]:
-    add_to_cover = []
-    while True:
-        parents = find_parents_of_leaves(graph)
-        if len(parents) == 0:
-            break
-        add_to_cover.extend([v['name'] for v in parents])
-        graph.delete_vertices(parents)
-
-    return add_to_cover
-
-
-def find_vertex_with_degree_2_and_disjoint_neighbors(graph: Graph):
-    all_vertex_with_degree_2 = [v for v in graph.vs if (v.degree() == 2 and not is_neighbors(v.neighbors()))]
-    if len(all_vertex_with_degree_2) > 0:
-        return all_vertex_with_degree_2[0]
-    else:
-        return None
-
-
-def is_neighbors(vertices: Tuple[Vertex, Vertex]):
-    v1, v2 = vertices
-    return v2 in v1.neighbors()
-
-
-def remove_vertices_with_2_disjoint_neighbors(graph: Graph):
-
-    counter = 0
-    while True:
-        vertex: Vertex = find_vertex_with_degree_2_and_disjoint_neighbors(graph)
-        if vertex is None:
-            break
-
-        neighbors: List[Vertex] = vertex.neighbors()
-        neighbors_of_neighbors = [n['name'] for n in neighbors[0].neighbors() if n.index != vertex.index] + \
-                                 [n['name'] for n in neighbors[1].neighbors() if n.index != vertex.index]
-
-        graph.delete_vertices([vertex] + neighbors)
-
-        graph.add_vertex(name=f'new-iteration{remove_vertices_with_2_disjoint_neighbors.counter}')
-        new_vertex: Vertex = graph.vs.find(name=f'new-iteration{remove_vertices_with_2_disjoint_neighbors.counter}')
-
-        remove_vertices_with_2_disjoint_neighbors.counter += 1
-        for v in neighbors_of_neighbors:
-            graph.add_edge(new_vertex, v)
-        counter = counter + 1
-    return counter
-
-
-remove_vertices_with_2_disjoint_neighbors.counter = 0
 
 
 def remove_vertex_if_contained_neighbors(graph: Graph):
