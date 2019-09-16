@@ -116,3 +116,8 @@ def count_parents_of_leaves(graph: Graph):
     parents = [v for v in graph.vs if v.degree() > 1 and any_neighbors_rank_1(v)]
     assert len(parents_degree_1) % 2 == 0, "Number of parents with degree 1 must be even!"
     return len(parents) + len(parents_degree_1) / 2
+
+
+def set_name(graph: Graph):
+    for v in graph.vs:
+        v['name'] = f'v{v.index}'

@@ -1,6 +1,8 @@
 from igraph import Graph, Vertex
 from typing import List
 
+from graph_utils import set_name
+
 
 def is_empty_graph(graph: Graph):
     return len(graph.es) == 0
@@ -17,11 +19,6 @@ def select_vertices(graph: Graph) -> List[int]:
 def zero_vertices(graph: Graph, selected_vertices: List[int]):
     selected_set = graph.vs.select(name_in=selected_vertices)
     graph.delete_vertices(selected_set)
-
-
-def set_name(graph: Graph):
-    for v in graph.vs:
-        v['name'] = v.index
 
 
 def first_vertex_with_degree_algo(_, orig: Graph):

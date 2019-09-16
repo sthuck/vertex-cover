@@ -6,6 +6,7 @@ import numpy
 from algorithms.neighbors_algo import compute_t
 from algorithms.xyz.xyz_common_code import get_x_vector, get_y_vector, get_z_vector
 from algorithms.xyz.xyz_utils import all_vertex_degree
+from graph_utils import set_name
 
 
 def is_empty_graph(graph: Graph):
@@ -61,11 +62,6 @@ def select_vertices(graph: Graph) -> Tuple[List[int], List[int]]:
 def zero_vertices(graph: Graph, selected_vertices: List[int]):
     selected_set = graph.vs.select(name_in=selected_vertices)
     graph.delete_vertices(selected_set)
-
-
-def set_name(graph: Graph):
-    for v in graph.vs:
-        v['name'] = v.index
 
 
 def find_parents_of_leaves(graph: Graph):

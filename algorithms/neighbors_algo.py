@@ -1,6 +1,8 @@
 from igraph import Graph, Vertex
 from typing import List, Tuple
 
+from graph_utils import set_name
+
 
 def is_empty_graph(graph: Graph):
     return len(graph.es) == 0
@@ -30,11 +32,6 @@ def zero_vertices(graph: Graph, selected_vertices: List[int]):
 
 def remove_vertex_and_neighbors(graph: Graph, v: Vertex):
     graph.delete_vertices([v.index] + [ve.index for ve in v.neighbors()])
-
-
-def set_name(graph: Graph):
-    for v in graph.vs:
-        v['name'] = v.index
 
 
 def find_parents_of_leaves(graph: Graph):

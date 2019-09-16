@@ -1,6 +1,8 @@
 import numpy as np
 import scipy.sparse as sp
 import scipy
+
+from graph_utils import set_name
 from .xyz_utils import all_vertex_degree, is_empty_graph as is_empty_graph_sparse
 from .xyz_common_code import get_x_vector, get_y_vector, get_z_vector
 from algorithms.reductions import remove_parents_of_leaves
@@ -46,28 +48,8 @@ def zero_vertices_by_index(graph: Graph, vertex: Union[int, List[int]]):
     graph.delete_vertices(vertex)
 
 
-def set_name(graph: Graph):
-    for v in graph.vs:
-        v['name'] = f'v{v.index}'
-
-
 def build_sparse(graph: Graph):
     return scipy.sparse.csr_matrix(graph.get_adjacency().data)
-
-
-def remove_vertex_if_contained_neighbors(graph: Graph):
-    to_remove_set = set()
-    v: Vertex
-    for v in graph.vs:
-        u: Vertex
-        for u in v.neighbors():
-            if set(v.neighbors()).issuperset(set(u.neighbors())):
-                to_remove_set.add(v)
-
-    add_to_cover_list = [v['name'] for v in to_remove_set]
-
-    zero_vertices_by_index(graph, [v.index for v in to_remove_set])
-    return add_to_cover_list
 
 
 def xyz_v3_algo(_, orig: Graph):

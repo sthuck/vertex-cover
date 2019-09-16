@@ -2,6 +2,8 @@ from igraph import Graph
 from igraph import Vertex
 from typing import Tuple, List
 
+from graph_utils import set_name
+
 
 def find_parents_of_leaves(graph: Graph):
     all_leaves = [v for v in graph.vs if v.degree() == 1]
@@ -33,11 +35,6 @@ def find_vertex_with_degree_2_and_disjoint_neighbors(graph: Graph):
         return all_vertex_with_degree_2[0]
     else:
         return None
-
-
-def set_name(graph: Graph):
-    for v in graph.vs:
-        v['name'] = f'v{v.index}'
 
 
 def p0003_graph(graph=None):
