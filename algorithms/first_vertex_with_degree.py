@@ -12,11 +12,11 @@ def find_vertex_with_neighbours(graph: Graph) -> Vertex:
     return next(v for v in graph.vs if v.outdegree() > 0)
 
 
-def select_vertices(graph: Graph) -> List[int]:
+def select_vertices(graph: Graph) -> List[str]:
     return [v['name'] for v in find_vertex_with_neighbours(graph).neighbors()]
 
 
-def zero_vertices(graph: Graph, selected_vertices: List[int]):
+def zero_vertices(graph: Graph, selected_vertices: List[str]):
     selected_set = graph.vs.select(name_in=selected_vertices)
     graph.delete_vertices(selected_set)
 

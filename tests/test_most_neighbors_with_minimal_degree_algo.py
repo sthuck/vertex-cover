@@ -28,4 +28,4 @@ class Test_Most_neighbors_with_minimal_degree_algo(TestCase):
     def test_most_neighbors_with_minimal_degree_algo(self):
         graph = Graph(n=7, edges=[(0, 1), (0, 5), (1, 5), (1, 2), (2, 5), (2, 4), (4, 3), (4, 5), (3, 6)])
         cover_group = most_neighbors_with_minimal_degree.most_neighbors_with_minimal_degree_algo(None, graph)
-        assert_equal(cover_group, [3, 5, 1, 2])
+        assert_equal(cover_group, ['v3', 'v5', 'v1', 'v2'])

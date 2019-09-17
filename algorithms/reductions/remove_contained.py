@@ -8,6 +8,8 @@ def remove_vertex_if_contained_neighbors(graph: Graph):
     for v in graph.vs:
         u: Vertex
         for u in v.neighbors():
+            if u in to_remove_set:  # not checking containment of to be removed vertices
+                continue
             u_neighbors = set(u.neighbors())
             u_neighbors.remove(v)
             if set(v.neighbors()).issuperset(u_neighbors):

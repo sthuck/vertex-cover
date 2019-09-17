@@ -35,4 +35,4 @@ def test_compute_t():
 def test_select_vertices():
     graph = Graph(n=7, edges=[(0, 1), (0, 5), (1, 5), (1, 2), (2, 5), (2, 4), (3, 6), (3, 4), (4, 5)])
     xyz_neighbors_combined.set_name(graph)
-    assert (xyz_neighbors_combined.select_vertices(graph) == ([1, 4, 5], [2]))
+    assert (xyz_neighbors_combined.select_vertices(graph) == (['v1', 'v4', 'v5'], ['v2']))

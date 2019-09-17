@@ -14,14 +14,14 @@ def test_find_vertex_with_neighbours():
 def test_select_vertices():
     graph = Graph(n=5, edges=[(2, 0), (1, 2), (0, 4), (4, 1)])
     first_vertex_with_degree.set_name(graph)
-    assert_equal(first_vertex_with_degree.select_vertices(graph), [2, 4])
+    assert_equal(first_vertex_with_degree.select_vertices(graph), ['v2', 'v4'])
 
 
 def test_zero_vertices():
     graph = Graph(n=5, edges=[(2, 0), (1, 2), (0, 4), (4, 1)])
     first_vertex_with_degree.set_name(graph)
-    first_vertex_with_degree.zero_vertices(graph, [2, 4])
-    assert_equal([v['name'] for v in graph.vs], [0, 1, 3])
+    first_vertex_with_degree.zero_vertices(graph, ['v2', 'v4'])
+    assert_equal([v['name'] for v in graph.vs], ['v0', 'v1', 'v3'])
 
 
 def test_algorithm():

@@ -8,7 +8,7 @@ def find_parents_of_leaves(graph: Graph):
     return parents
 
 
-def remove_parents_of_leaves(graph: Graph) -> List[int]:
+def remove_parents_of_leaves(graph: Graph, one_time=False) -> List[str]:
     add_to_cover = []
     while True:
         parents = find_parents_of_leaves(graph)
@@ -16,5 +16,7 @@ def remove_parents_of_leaves(graph: Graph) -> List[int]:
             break
         add_to_cover.extend([v['name'] for v in parents])
         graph.delete_vertices(parents)
+        if one_time:
+            break
 
     return add_to_cover

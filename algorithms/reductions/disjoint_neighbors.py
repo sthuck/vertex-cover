@@ -16,8 +16,7 @@ def remove_vertices_with_2_disjoint_neighbors(graph: Graph):
 
         # if neighbors are connected
         if is_neighbors(vertex.neighbors()):
-            graph.delete_vertices(vertex.neighbors())
-            graph.delete_vertices(vertex)
+            graph.delete_vertices([vertex] + vertex.neighbors())
             how_many_removed += 2
             continue
 

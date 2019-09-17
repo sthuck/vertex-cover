@@ -98,8 +98,8 @@ def write_csv_stats(stats: List[dict]):
         writer.writerows(stats)
 
 
-def check_if_legal_vertex_cover(graph: np.ndarray, vertex_cover: List[int]):
-    not_in_cover = [v for v in range(len(graph)) if v not in vertex_cover]
+def check_if_legal_vertex_cover(graph: np.ndarray, vertex_cover: List[str]):
+    not_in_cover = [v for v in range(len(graph)) if f'v{v}' not in vertex_cover]
     for v in not_in_cover:
         for v2 in not_in_cover:
             if graph[v][v2] == 1:

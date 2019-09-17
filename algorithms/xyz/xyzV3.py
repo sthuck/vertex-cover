@@ -5,7 +5,7 @@ import scipy
 from graph_utils import set_name
 from .xyz_utils import all_vertex_degree, is_empty_graph as is_empty_graph_sparse
 from .xyz_common_code import get_x_vector, get_y_vector, get_z_vector
-from algorithms.reductions import remove_parents_of_leaves
+from algorithms.reductions import reduce_graph
 from igraph import Graph, Vertex
 from typing import List, Union, Tuple
 
@@ -57,21 +57,13 @@ def xyz_v3_algo(_, orig: Graph):
     set_name(graph)
 
     cover_group = []
-    removed_vertices_with_2_disjoint_neighbors_counter = 0
+    removed_counter = 0
 
     while True:
 
-        # Phase 1
-        add_to_cover = remove_parents_of_leaves(graph)
-        cover_group += add_to_cover
-
-        # Phase 2
-        how_many_removed = remove_vertices_with_2_disjoint_neighbors(graph)
-        removed_vertices_with_2_disjoint_neighbors_counter += how_many_removed
-
-        # Phase 3
-        add_to_cover = remove_vertex_if_contained_neighbors(graph)
-        cover_group += add_to_cover
+        add_to_cover, removed_in_reduce = reduce_graph(graph)
+        cover_group.extend(add_to_cover)
+        removed_counter += removed_in_reduce
 
         # xyz
         selected_vertex_index = xyz_select_vertex(graph)
@@ -79,4 +71,4 @@ def xyz_v3_algo(_, orig: Graph):
             break
         cover_group.append(graph.vs[selected_vertex_index]['name'])
         zero_vertices_by_index(graph, selected_vertex_index)
-    return list(cover_group), removed_vertices_with_2_disjoint_neighbors_counter
+    return list(cover_group), removed_counter
