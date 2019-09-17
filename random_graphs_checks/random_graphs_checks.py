@@ -5,13 +5,13 @@ from graph_utils import set_name
 from algorithms.reductions import reduce_graph, remove_parents_of_leaves, print_graph_info
 
 
-def run_reduce_1_once(graph=None):
+def run_reduce_1_by_iteration(graph=None):
     graph: Graph = graph or Graph.Erdos_Renyi(1000, 2 / 1000)
     set_name(graph)
 
-    print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='start')
-    remove_parents_of_leaves(graph, one_time=True)
-    print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='end')
+    print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='initial graph')
+    added_to_cover = remove_parents_of_leaves(graph, log=True, one_time=False)
+    print(f'how many added to cover: {len(added_to_cover)}')
 
 
 def run_reduce_graph_compare(graph=None):
@@ -35,10 +35,12 @@ def run_reduce_graph_all(graph=None):
     set_name(graph)
 
     print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='start')
-    reduce_graph(graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=True)
+    added_to_cover, counter_of_removed = reduce_graph(graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=True)
+    print(f'size of cover: {len(added_to_cover) + counter_of_removed}')
     print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='end')
 
 
 if __name__ == '__main__':
-    # print(p0002_graph())
-    run_reduce_graph_compare()
+    # run_reduce_1_by_iteration()
+    # run_reduce_graph_compare()
+    run_reduce_graph_all()
