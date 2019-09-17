@@ -6,7 +6,10 @@ from algorithms.reductions.print_info import print_graph_info
 
 def find_parents_of_leaves(graph: Graph):
     all_leaves = [v for v in graph.vs if v.degree() == 1]
-    parents = {leaf.neighbors()[0] for leaf in all_leaves}
+    parents = set()
+    for leaf in all_leaves:
+        if leaf not in parents:
+            parents.add(leaf.neighbors()[0])
     return parents
 
 

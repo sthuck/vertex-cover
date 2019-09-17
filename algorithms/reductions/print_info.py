@@ -4,9 +4,12 @@ import pprint
 
 def info_leaves(graph: Graph):
     v: Vertex
-    leaves = [v for v in graph.vs if v.degree() == 1]
-    parents_of_leaves = {v.neighbors()[0] for v in leaves}
-    return {'Number of leaves': len(leaves), 'Number of parents of leaves': len(parents_of_leaves)}
+    all_leaves = [v for v in graph.vs if v.degree() == 1]
+    parents_of_leaves = set()
+    for leaf in all_leaves:
+        if leaf not in parents_of_leaves:
+            parents_of_leaves.add(leaf.neighbors()[0])
+    return {'Number of leaves': len(all_leaves), 'Number of parents of leaves': len(parents_of_leaves)}
 
 
 def info_zero_degree(graph: Graph):
