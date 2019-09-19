@@ -1,5 +1,5 @@
 import numpy as np
-
+import random
 
 def all_vertex_degree(graph: np.ndarray):
     return graph.sum(axis=0)
@@ -15,8 +15,10 @@ def zero_vertex(graph: np.ndarray, vertex: int):
 
 
 def select_vertex(graph: np.ndarray):
-    degree_vector = all_vertex_degree(graph)
-    return np.argmax(degree_vector)
+    degree_vector: np.ndarray = all_vertex_degree(graph)
+    random_vector = np.array([random.random() for i in range(len(degree_vector))])
+    fake_degree_vector = random_vector + degree_vector
+    return np.argmax(fake_degree_vector)
 
 
 def degree(graph: np.ndarray, *args):

@@ -2,20 +2,23 @@ from igraph import Graph
 from igraph import Vertex
 from typing import Tuple, List
 from graph_utils import set_name
-from algorithms.reductions import reduce_graph, remove_parents_of_leaves, print_graph_info
+from algorithms.reductions import reduce_graph, remove_parents_of_leaves, print_graph_info, print_theortical_number_of_leaves
 
 
 def run_reduce_1_by_iteration(graph=None):
-    graph: Graph = graph or Graph.Erdos_Renyi(1000, 2 / 1000)
+    n = 1000
+    c = 3
+    graph: Graph = graph or Graph.Erdos_Renyi(n, c / n)
     set_name(graph)
 
+    print_theortical_number_of_leaves(n, c)
     print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='initial graph')
     added_to_cover = remove_parents_of_leaves(graph, log=True, one_time=False)
     print(f'how many added to cover: {len(added_to_cover)}')
 
 
 def run_reduce_graph_compare(graph=None):
-    graph: Graph = graph or Graph.Erdos_Renyi(1000, 3 / 1000)
+    graph: Graph = graph or Graph.Erdos_Renyi(10000, 2.8 / 10000)
     copy1 = graph.copy()
     copy2 = graph.copy()
     set_name(copy1)
@@ -31,7 +34,7 @@ def run_reduce_graph_compare(graph=None):
 
 
 def run_reduce_graph_all(graph=None):
-    graph: Graph = graph or Graph.Erdos_Renyi(1000, 2 / 1000)
+    graph: Graph = graph or Graph.Erdos_Renyi(100, 3 / 100)
     set_name(graph)
 
     print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='start')
@@ -41,6 +44,6 @@ def run_reduce_graph_all(graph=None):
 
 
 if __name__ == '__main__':
-    # run_reduce_1_by_iteration()
+    run_reduce_1_by_iteration()
     # run_reduce_graph_compare()
-    run_reduce_graph_all()
+    # run_reduce_graph_all()

@@ -1,6 +1,6 @@
 from igraph import Graph, Vertex
 import pprint
-
+import math
 
 def info_leaves(graph: Graph):
     v: Vertex
@@ -37,3 +37,13 @@ def print_graph_info(graph: Graph, leaves=False, zero_degree=False, connected_co
             pprint.pprint(f'==== {label} ====')
         pprint.pprint(result)
         print()
+
+
+def print_theortical_number_of_leaves(n, c):
+    leaves = n * c * (math.pow(math.e, -c))
+    parents_of_leaves = n * (1 - math.pow(math.e, (-c * math.pow(math.e, -c))))
+    vertices_with_degree = n * math.pow(math.e, -c)
+
+    print(f'Therotical number of leaves: {leaves}')
+    print(f'Therotical number of parents of leaves: {parents_of_leaves}')
+    print(f'Therotical number of vertices with degree 0: {vertices_with_degree}')

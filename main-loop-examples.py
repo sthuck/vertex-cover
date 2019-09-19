@@ -63,7 +63,7 @@ def main():
         # "johnson8-2-4.clq",
         # "johnson8-4-4.clq",
         # "keller4.clq",
-        "keller5.clq",
+        # "keller5.clq",
         # "keller6.clq",
         # "MANN_a27.clq",
         # "MANN_a45.clq",
@@ -95,9 +95,9 @@ def main():
         # "san400_0.7_2.clq",
         # "san400_0.7_3.clq",
         # "san400_0.9_1.clq",
-        "sanr200_0.7.clq",
-        "sanr200_0.9.clq",
-        # "sanr400_0.5.clq",
+        # "sanr200_0.7.clq",
+        # "sanr200_0.9.clq",
+        "sanr400_0.5.clq",
         # "sanr400_0.7.clq",
         # "frb/frb100-40.mis",
         # "frb/frb30-15-1.mis",
@@ -142,8 +142,8 @@ def main():
         # "frb/frb59-26-5.mis"
 
     ]
-    # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [xyz_v3_algo, neighbors_algo, xyz_neighbors_combined_algo, most_neighbors_with_minimal_degree_algo, vsa, degree, shaked_algo_impl]
+    # algorithms = [vsa, vsa_by_min, C, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
+    algorithms = [xyz_v3_algo, degree]
 
     # End Definitions
 
