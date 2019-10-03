@@ -1,6 +1,7 @@
 import numpy as np
 import random
 
+
 def all_vertex_degree(graph: np.ndarray):
     return graph.sum(axis=0)
 

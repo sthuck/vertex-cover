@@ -2,7 +2,7 @@ from igraph import Graph
 from igraph import Vertex
 from typing import Tuple, List
 from graph_utils import set_name
-from algorithms.reductions import reduce_graph, remove_parents_of_leaves, print_graph_info, print_theortical_number_of_leaves
+from algorithms.reductions import reduce_graph, remove_parents_of_leaves, print_graph_info, print_theoretical_number_of_leaves
 
 
 def run_reduce_1_by_iteration(graph=None):
@@ -11,7 +11,7 @@ def run_reduce_1_by_iteration(graph=None):
     graph: Graph = graph or Graph.Erdos_Renyi(n, c / n)
     set_name(graph)
 
-    print_theortical_number_of_leaves(n, c)
+    print_theoretical_number_of_leaves(n, c)
     print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='initial graph')
     added_to_cover = remove_parents_of_leaves(graph, log=True, one_time=False)
     print(f'how many added to cover: {len(added_to_cover)}')

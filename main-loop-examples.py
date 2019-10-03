@@ -161,7 +161,7 @@ def main():
         for algorithm in algorithms:
             np_graph_copy = np.copy(np_graph)
             result = algorithm(np_graph_copy, graph)
-            if algorithm.__name__ == 'xyz_v3_algo':
+            if any(name == algorithm.__name__ for name in ['xyz_v3_algo', 'xyz_weak_algo']):
                 print(algorithm.__name__, '::', len(result[0]) + result[1])
                 stats.update({algorithm.__name__: len(result[0]) + result[1]})
 

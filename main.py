@@ -32,6 +32,8 @@ def main():
         print('shaked_algo, E:', result)
     elif algorithm.__name__ == 'xyz_v3_algo':
         print('xyz_v3_algo:', len(result[0]) + result[1])
+    elif algorithm.__name__ == 'xyz_weak_algo':
+        print('xyz_v3_algo:', len(result[0]) + result[1])
     else:
         vertices = result
         write_to_file('out.svg', graph, vertices)

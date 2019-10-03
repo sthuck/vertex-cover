@@ -8,6 +8,23 @@ from .xyz_common_code import get_x_vector, get_y_vector, get_z_vector
 from algorithms.reductions import reduce_graph
 from igraph import Graph, Vertex
 from typing import List, Union, Tuple
+import random
+
+
+def find_minimum(arr: np.ndarray):
+    minimum = float("inf")
+    minimum_index = []
+    for index, num in enumerate(arr):
+        if num == minimum:
+            minimum_index += [index]
+        elif num > minimum:
+            continue
+        elif num < minimum:
+            minimum = num
+            minimum_index = [index]
+
+    select_random_index = random.randint(0, len(minimum_index) - 1)
+    return minimum_index[select_random_index]
 
 
 def xyz_select_vertex(graph: Graph) -> Union[int, None]:
@@ -23,20 +40,7 @@ def xyz_select_vertex(graph: Graph) -> Union[int, None]:
     z_vector = get_z_vector(sparse, vertex_degree_vector)
 
     diff_vector = z_vector - y_vector
-    return diff_vector.argmin()
-
-
-def get_all_leaves(graph: sp.lil_matrix):
-    degree_vertex = all_vertex_degree(graph)
-    leaves = np.where(degree_vertex == 1)[0]
-    return leaves
-
-
-def get_parent_of_leaf(graph: sp.lil_matrix, leaf_index: int):
-    # graph[leaf_index] returns matrix of one column, so np.nonzero also returns matrix
-    possible_parent = np.nonzero(graph[leaf_index])[1]
-
-    return possible_parent[0] if len(possible_parent) == 1 else None
+    return find_minimum(diff_vector)
 
 
 def zero_vertices(graph: Graph, selected_vertices: List[int]):

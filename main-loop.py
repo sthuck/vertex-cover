@@ -1,6 +1,6 @@
 from graph_utils import *
 import time
-from algorithms.xyz import xyz_algo, xyz_v2_algo, xyz_v3_algo
+from algorithms.xyz import xyz_algo, xyz_v2_algo, xyz_v3_algo, xyz_weak_algo
 from algorithms.neighbors_algo import neighbors_algo
 from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
 
@@ -16,11 +16,11 @@ def simple_becnh(fn):
 def main():
     # Definitions
     n = 500
-    p = 5/1000
+    p = 30/1000
     e = 8
     iterations = 10
     # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [xyz_algo, xyz_v2_algo, xyz_v3_algo, neighbors_algo, most_neighbors_with_minimal_degree_algo]
+    algorithms = [xyz_weak_algo, xyz_algo, xyz_v2_algo, xyz_v3_algo, neighbors_algo, most_neighbors_with_minimal_degree_algo]
 
     # End Definitions
     results = {algo.__name__: np.zeros(iterations) for algo in algorithms}
@@ -42,7 +42,7 @@ def main():
             np_graph_copy = np.copy(np_graph)
             result = algorithm(np_graph_copy, graph)
 
-            if algorithm.__name__ == 'xyz_v3_algo':
+            if any(name == algorithm.__name__ for name in ['xyz_v3_algo', 'xyz_weak_algo']):
                 print(algorithm.__name__, '::', len(result[0]) + result[1])
                 results[algorithm.__name__][i] = len(result[0]) + result[1]
                 stats.update({algorithm.__name__: len(result[0]) + result[1]})

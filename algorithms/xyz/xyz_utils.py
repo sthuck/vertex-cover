@@ -1,6 +1,7 @@
 import scipy.sparse as sp
 import numpy
 from typing import Union
+from igraph import Graph
 
 
 def zero_vertex(graph: sp.spmatrix, vertex: int):
