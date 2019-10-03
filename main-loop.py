@@ -3,7 +3,7 @@ import time
 from algorithms.xyz import xyz_algo, xyz_v2_algo, xyz_v3_algo, xyz_weak_algo
 from algorithms.neighbors_algo import neighbors_algo
 from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
-
+from algorithms.novac1 import novac1_algo
 
 def simple_becnh(fn):
     start = time.time()
@@ -20,7 +20,7 @@ def main():
     e = 8
     iterations = 10
     # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [xyz_weak_algo, xyz_algo, xyz_v2_algo, xyz_v3_algo, neighbors_algo, most_neighbors_with_minimal_degree_algo]
+    algorithms = [novac1_algo, xyz_weak_algo, xyz_algo, xyz_v2_algo, xyz_v3_algo, neighbors_algo, most_neighbors_with_minimal_degree_algo, ]
 
     # End Definitions
     results = {algo.__name__: np.zeros(iterations) for algo in algorithms}

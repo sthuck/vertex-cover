@@ -25,14 +25,14 @@ def random_graph_by_edges(n, e):
 def write_to_graphml(graph: Graph, vertices):
     graph.vs["name"] = [str(i) for i in range(graph.vcount())]
     graph.vs["color"] = [
-        'deepskyblue' if i in vertices else 'indianred' for i in range(graph.vcount())]
+        'deepskyblue' if f'v{i}' in vertices else 'indianred' for i in range(graph.vcount())]
     graph.write('output.graphml', format='graphml')
 
 
 def write_to_file(file_name: str, graph: Graph, vertices):
     options = {
         'labels': [str(i) for i in range(graph.vcount())],
-        'colors': ['deepskyblue' if i in vertices else 'indianred' for i in range(graph.vcount())],
+        'colors': ['deepskyblue' if f'v{i}' in vertices else 'indianred' for i in range(graph.vcount())],
         'layout': graph.layout_auto()
     }
     graph.write_svg(file_name, height=800, width=800, **options)
