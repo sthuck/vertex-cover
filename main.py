@@ -34,7 +34,11 @@ def main():
     elif algorithm.__name__ == 'xyz_v3_algo':
         print('xyz_v3_algo:', len(result[0]) + result[1])
     elif algorithm.__name__ == 'xyz_weak_algo':
-        print('xyz_v3_algo:', len(result[0]) + result[1])
+        print('xyz_weak_algo:', len(result[0]) + result[1])
+    elif algorithm.__name__ == 'novac1_algo':
+        print('novac1_algo:', len(result[0]) + result[1])
+    elif algorithm.__name__ == 'degree':
+        print('degree:', len(result[0]) + result[1])
     else:
         vertices = result
         write_to_file('out.svg', graph, vertices)

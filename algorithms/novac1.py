@@ -4,6 +4,7 @@ from typing import List, Tuple
 from graph_utils import set_name
 import random
 from functools import reduce
+from algorithms.reductions import reduce_graph
 
 
 def is_empty_graph(graph: Graph):
@@ -41,14 +42,22 @@ def zero_vertices(graph: Graph, selected_vertices: List[str]):
 
 
 def novac1_algo(_, orig: Graph):
-    cover_group = []
     graph: Graph = orig.copy()
     set_name(graph)
 
+    cover_group = []
+    removed_counter = 0
+
     while not is_empty_graph(graph):
 
+        add_to_cover, removed_in_reduce = reduce_graph(graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=True)
+        cover_group.extend(add_to_cover)
+        removed_counter += removed_in_reduce
+
+        if is_empty_graph(graph):
+            break
         selected_vertices = select_vertices(graph)
         zero_vertices(graph, selected_vertices)
         cover_group = cover_group + selected_vertices
 
-    return cover_group
+    return cover_group, removed_counter
