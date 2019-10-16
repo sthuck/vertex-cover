@@ -20,7 +20,7 @@ def simple_becnh(fn):
 def main():
     # Definitions
     filenames = [
-        # "brock200_1.clq",
+        "brock200_1.clq",
         # "brock200_2.clq",
         # "brock200_3.clq",
         # "brock200_4.clq",
@@ -98,7 +98,7 @@ def main():
         # "san400_0.9_1.clq",
         # "sanr200_0.7.clq",
         # "sanr200_0.9.clq",
-        "sanr400_0.5.clq",
+        # "sanr400_0.5.clq",
         # "sanr400_0.7.clq",
         # "frb/frb100-40.mis",
         # "frb/frb30-15-1.mis",

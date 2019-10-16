@@ -22,7 +22,7 @@ def info_zero_degree(graph: Graph):
 def info_connected_components(graph: Graph):
     components = [c for c in graph.components() if len(c) > 1]
     components_with_size_2 = [c for c in graph.components() if len(c) == 2]
-    return {'How many components': len(components), 'Component length vector': [len(c) for c in components],
+    return {'How many components': len(components), 'Component length vector': ', '.join([str(len(c)) for c in components]),
             'Components with size 2': len(components_with_size_2)}
 
 

@@ -2,9 +2,9 @@ from graph_utils import *
 import time
 from algorithms.xyz import xyz_algo, xyz_v2_algo, xyz_v3_algo, xyz_weak_algo
 from algorithms.neighbors_algo import neighbors_algo
-from algorithms.degree import degree
 from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
 from algorithms.novac1 import novac1_algo
+from algorithms.degree import degree
 
 def simple_becnh(fn):
     start = time.time()
@@ -16,12 +16,13 @@ def simple_becnh(fn):
 # noinspection DuplicatedCode
 def main():
     # Definitions
-    n = 500
-    p = 30/1000
+    n = 1000
+    p = 20/1000
     e = 8
-    iterations = 10
+    iterations = 1
     # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [novac1_algo, xyz_weak_algo, xyz_algo, xyz_v2_algo, xyz_v3_algo, neighbors_algo, most_neighbors_with_minimal_degree_algo, degree]
+    algorithms = [novac1_algo, xyz_weak_algo,  xyz_v3_algo, degree]
+    # algorithms = [xyz_weak_algo]
 
     # End Definitions
     results = {algo.__name__: np.zeros(iterations) for algo in algorithms}
@@ -38,7 +39,7 @@ def main():
         stats.update({'Graph name': i, 'Edges Num': len(graph.es), 'Vertex Num': len(graph.vs)})
         stats.update({'parents of leaves': count_parents_of_leaves(graph)})
 
-        print('iteration:', i, '   number of edges:', len(graph.es))
+        print('main loop:: iteration:', i, '   number of edges:', len(graph.es))
         for algorithm in algorithms:
             np_graph_copy = np.copy(np_graph)
             result = algorithm(np_graph_copy, graph)
