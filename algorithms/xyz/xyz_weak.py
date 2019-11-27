@@ -77,18 +77,16 @@ def xyz_weak_algo(_, orig: Graph):
     cover_group = []
     removed_counter = 0
     iteration = 0
-    # add_to_cover, removed_in_reduce = reduce_graph(graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=True)
-    # cover_group.extend(add_to_cover)
-    # removed_counter += removed_in_reduce
+
     if log:
         print_graph_info(graph, leaves=True, zero_degree=True, connected_components=True, label='xyz_weak: start')
         print_vertex_number(graph)
 
     while True:
 
-        # add_to_cover, removed_in_reduce = reduce_graph(graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=True)
-        # cover_group.extend(add_to_cover)
-        # removed_counter += removed_in_reduce
+        add_to_cover, removed_in_reduce = reduce_graph(graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=True)
+        cover_group.extend(add_to_cover)
+        removed_counter += removed_in_reduce
 
         # xyz
         result = xyz_weak_select_vertex(graph)
