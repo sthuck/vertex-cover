@@ -15,9 +15,9 @@ def simple_becnh(fn):
 def main():
     # Definitions
     n = 1000
-    p = 2/1000
+    p = 3/1000
     e = 8
-    iterations = 10
+    iterations = 1000
 
     print('Phase 1 - same graph, random index choose')
     graph = random_graph(n, p)

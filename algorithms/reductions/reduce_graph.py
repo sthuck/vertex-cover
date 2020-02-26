@@ -18,7 +18,7 @@ def reduce_graph(graph: Graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=T
 
         if do_reduce_2:
             how_many_removed = remove_vertices_with_2_disjoint_neighbors(graph)
-            if how_many_removed > 0:inmotion
+            if how_many_removed > 0:
                 reduce_2_worked = True
             counter_of_removed += how_many_removed
 

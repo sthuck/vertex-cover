@@ -50,7 +50,7 @@ def novac1_algo(_, orig: Graph):
 
     while not is_empty_graph(graph):
 
-        add_to_cover, removed_in_reduce = reduce_graph(graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=True)
+        add_to_cover, removed_in_reduce = reduce_graph(graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=False)
         cover_group.extend(add_to_cover)
         removed_counter += removed_in_reduce
 
