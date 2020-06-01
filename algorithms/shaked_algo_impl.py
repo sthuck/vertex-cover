@@ -18,14 +18,9 @@ def zero_vertex(graph: np.ndarray, vertex: int):
 # TODO: Benchmark
 # np.argwhere(graph == np.amax(graph))
 def select_vertex(graph: np.ndarray):
-    vertex_degree_vector = all_vertex_degree(graph)
-
-    it = np.nditer(vertex_degree_vector, flags=['f_index'])
-
-    while it[0] == 0:
-        it.iternext()
-
-    return it.index
+    vertex_degree_vector: np.ndarray = all_vertex_degree(graph)
+    nonzero = vertex_degree_vector.nonzero()
+    return nonzero[0][0]
 
 
 def is_empty_graph(graph: np.ndarray):
