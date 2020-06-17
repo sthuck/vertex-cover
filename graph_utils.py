@@ -118,6 +118,11 @@ def count_parents_of_leaves(graph: Graph):
     return len(parents) + len(parents_degree_1) / 2
 
 
+def dv_divide_dv_plus_1(graph: Graph):
+    dv = np.array([v.degree() for v in graph.vs])
+    return np.sum(dv/(dv + 1))
+
+
 def set_name(graph: Graph):
     for v in graph.vs:
         v['name'] = f'v{v.index}'
