@@ -1,4 +1,5 @@
 from algorithms import shaked_algo_impl
+from algorithms import shaked_algo_impl_v2
 from graph_utils import graph_to_numpy
 from igraph import Graph
 import numpy as np
@@ -19,9 +20,10 @@ def main():
     for i in range(iterations):
         graph: Graph = Graph.Erdos_Renyi(n, c / n)
         np_graph = graph_to_numpy(graph)
-        cover_group = shaked_algo_impl.shaked_algo_impl(np_graph)
+        cover_group = shaked_algo_impl_v2.shaked_algo_impl_v2(np_graph)
         cover_group_size = len(cover_group)
-        print(f'iteration {i}: {cover_group_size}')
+        if i % 100 == 0:
+            print(f'iteration {i}: {cover_group_size}')
         results.append(cover_group_size)
     theorem2_c = (np.array(results) - numerator)/denominator
     print('=========')
@@ -32,7 +34,7 @@ def main():
     variance = np.array(results).var()
     print(f'variance: {variance}')
     print(f'rhs_b {rhs_b}')
-
+    np.save('theorem2_c.npy', theorem2_c)
     plot_hist(theorem2_c)
 
 
