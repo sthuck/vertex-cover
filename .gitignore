@@ -118,3 +118,6 @@ stats.csv
 .idea
 out.svg
 output.graphml
+*.png
+*.npy
+*.lyx

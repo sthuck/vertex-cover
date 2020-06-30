@@ -7,35 +7,59 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    iterations = 100000
+    what_graph = 'star'  # gnp | star | ring
+    iterations = 100
     n = 1000
-    c = 1
+    c = 0.5
     results = []
-    rhs_a = (n / c) * (c - 1 + np.e ** (-c))
-    rhs_b = (n / (2 * c)) * (np.e ** (-c) - 1) ** 2
+    if what_graph == 'gnp':
+        rhs_a = (n / c) * (c - 1 + np.e ** (-c))
+        rhs_b = (n / (2 * c)) * (np.e ** (-c) - 1) ** 2
 
-    numerator = rhs_a
-    denominator = np.sqrt(rhs_b)
+        numerator = rhs_a
+        denominator = np.sqrt(rhs_b)
 
     for i in range(iterations):
-        graph: Graph = Graph.Erdos_Renyi(n, c / n)
+
+        if what_graph == 'gnp':
+            graph: Graph = Graph.Erdos_Renyi(n, c / n)
+            randomize = False
+        elif what_graph == 'ring':
+            graph: Graph = Graph.Ring(n)
+            randomize = True
+        elif what_graph == 'star':
+            graph: Graph = Graph.Star(n)
+            randomize = True
+        else:
+            raise Exception("Bad what_graph value")
+
         np_graph = graph_to_numpy(graph)
-        cover_group = shaked_algo_impl_v2.shaked_algo_impl_v2(np_graph)
+        cover_group = shaked_algo_impl_v2.shaked_algo_impl_v2(np_graph, randomize=randomize)
         cover_group_size = len(cover_group)
         if i % 100 == 0:
-            print(f'iteration {i}: {cover_group_size}')
+            print(f'iteration {i}')
         results.append(cover_group_size)
-    theorem2_c = (np.array(results) - numerator)/denominator
+    if what_graph == 'gnp':
+        theorem2_c = (np.array(results) - numerator)/denominator
+
     print('=========')
     avg = np.array(results).mean()
     print(f'average: {avg}')
-    print(f'rhs_a {rhs_a}')
+
+    if what_graph == 'gnp':
+        print(f'rhs_a {rhs_a}')
 
     variance = np.array(results).var()
     print(f'variance: {variance}')
-    print(f'rhs_b {rhs_b}')
-    np.save('theorem2_c.npy', theorem2_c)
-    plot_hist(theorem2_c)
+
+    if what_graph == 'gnp':
+        print(f'rhs_b {rhs_b}')
+        np.save('theorem2_c.npy', theorem2_c)
+        plot_hist(theorem2_c)
+
+    if what_graph == 'star':
+        expectation = (n**2 + n-2)/(2*n)
+        print(f'star expectation: {expectation}')
 
 
 def plot_hist(x):
@@ -66,3 +90,9 @@ if __name__ == '__main__':
      main()
 
 
+### TODO:
+# n=1000 iterations = 100,000 c=1
+# n=1000 iterations= 1,000,000 c=0.5
+# n=1000 iterations= 1,000,000 c=0.25
+# ring graph n = 1000, iterations=100,000
+# star graph n = 1000, iterations=100,000
