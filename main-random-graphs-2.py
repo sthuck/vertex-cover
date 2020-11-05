@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    what_graph = 'star'  # gnp | star | ring
-    iterations = 100
+    what_graph = 'gnp'  # gnp | star | ring
+    iterations = 50
     n = 1000
-    c = 0.5
+    c = 2.75
     results = []
     if what_graph == 'gnp':
         rhs_a = (n / c) * (c - 1 + np.e ** (-c))

@@ -1,6 +1,8 @@
 from graph_utils import *
 from algorithms.xyz import xyz_v2_algo, xyz_v3_algo
 from algorithms.novac1 import novac1_algo
+from algorithms.degree_minus import degree_minus
+from algorithms.shaked_algo_impl_v2 import shaked_algo_impl_v2
 import time
 
 
@@ -13,10 +15,11 @@ def simple_bench(fn):
 
 def main():
     # Definition
-    n = 30
-    p = 0.4
-    # All options: vsa, vsa_by_min, shaked_algo, degree
-    algorithm = novac1_algo
+    n = 2000
+    c = 5
+    p = c/n
+    # All options: vsa, vsa_by_min, shaked_algo_impl_v2, degree, degree_minus
+    algorithm = degree_minus
 
     # random graph:
     graph = random_graph(n, p)

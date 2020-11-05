@@ -5,6 +5,8 @@ from algorithms.neighbors_algo import neighbors_algo
 from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
 from algorithms.novac1 import novac1_algo
 from algorithms.degree import degree
+from algorithms.degree_minus import degree_minus
+from algorithms.shaked_algo_impl_v2 import shaked_algo_impl_v2
 
 def simple_becnh(fn):
     start = time.time()
@@ -16,13 +18,13 @@ def simple_becnh(fn):
 # noinspection DuplicatedCode
 def main():
     # Definitions
-    n = 1000
-    p = 30/1000
+    n = 100
+    p = 0.1
     e = 8
-    iterations = 1
+
+    iterations = 15
     # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [novac1_algo, xyz_weak_algo,  xyz_v3_algo, degree]
-    # algorithms = [xyz_weak_algo]
+    algorithms = [degree_minus, shaked_algo_impl_v2]
 
     # End Definitions
     results = {algo.__name__: np.zeros(iterations) for algo in algorithms}
