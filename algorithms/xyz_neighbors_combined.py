@@ -87,3 +87,4 @@ def xyz_neighbors_combined_algo(_, orig: Graph):
         zero_vertices(graph, selected_vertices + vertices_to_zero)
         cover_group = cover_group + selected_vertices
     return cover_group
+

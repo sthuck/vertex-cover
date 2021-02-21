@@ -2,10 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-x = np.load('./theorem2_c_10_c1.npy')
 
-
-def plot_hist(x, num_bins=50):
+def plot_hist(x, title, num_bins=50, plot_guiding_line=True):
     mu = 0  # mean of distribution
     sigma = 1  # standard deviation of distribution
 
@@ -17,23 +15,29 @@ def plot_hist(x, num_bins=50):
     # add a 'best fit' line
     y = ((1 / (np.sqrt(2 * np.pi) * sigma)) *
          np.exp(-0.5 * (1 / sigma * (bins - mu)) ** 2))
-    ax.plot(bins, y, '--')
+
+    if plot_guiding_line:
+        ax.plot(bins, y, '--')
+
     ax.set_xlabel('')
     ax.set_ylabel('Probability density')
-    ax.set_title(r'Theorem 2c')
+    ax.set_title(title)
 
     # Tweak spacing to prevent clipping of ylabel
     fig.tight_layout()
     plt.show()
 
 
-def plot_density():
+def plot_density(x):
     ax = pd.DataFrame(x).plot(kind='density', grid=True, xlim=(-3, 3))
     ax.plot()
     plt.show()
 
 
-plot_hist(x, 50)
+if __name__ == '__main__':
+    x = np.load('./theorem2_c_10_c1.npy')
+    plot_hist(x, r'Theorem 2c', 50)
+
 # plot_density()
 # plot_hist(x, 100)
 # plot_hist(x, 150)
