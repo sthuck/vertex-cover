@@ -24,7 +24,7 @@ def simple_becnh(fn):
 def main():
     # Definitions
     n = 1000
-    p = 10/1000
+    p = 3/1000
     e = 8
 
     iterations = 1

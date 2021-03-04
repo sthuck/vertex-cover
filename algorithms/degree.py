@@ -2,7 +2,7 @@ import numpy as np
 import random
 from igraph import Graph, Vertex
 from typing import List
-from graph_utils import set_name
+from graph_utils import set_name, split_dataframe_to_averaged_bins
 from algorithms.reductions import reduce_graph
 import pandas as pd
 
@@ -58,7 +58,8 @@ def degree(_: np.ndarray, orig: Graph):
 def print_g_of_v_extra_metadata(metadata):
     (cover_group_degree,) = metadata
     degree_df = pd.DataFrame({'degree': cover_group_degree})
-    degree_df.plot(title='DEGREE algo, degree per iteration', kind='bar')
+    averaged_degree_df = split_dataframe_to_averaged_bins(degree_df, 10)
+    averaged_degree_df.plot(title='DEGREE algo, degree per iteration')
 
     print('========= cover_group_degree =========')
     print(cover_group_degree)

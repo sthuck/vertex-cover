@@ -5,7 +5,7 @@ import numpy as np
 import re
 import sys
 import csv
-
+import pandas as pd
 
 # graph.write('output.graphml', format='graphml')
 # layout = graph.layout_grid(width=10, height=10, dim=3)
@@ -126,3 +126,22 @@ def dv_divide_dv_plus_1(graph: Graph):
 def set_name(graph: Graph):
     for v in graph.vs:
         v['name'] = f'v{v.index}'
+
+
+def allmax_index(a):
+    if len(a) == 0:
+        return []
+    all_ = [0]
+    max_ = a[0]
+    for i in range(1, len(a)):
+        if a[i] > max_:
+            all_ = [i]
+            max_ = a[i]
+        elif a[i] == max_:
+            all_.append(i)
+    return all_
+
+
+def split_dataframe_to_averaged_bins(orig_df: pd.DataFrame, number_of_bins):
+    bins = np.array_split(orig_df, len(orig_df)//number_of_bins)
+    return pd.DataFrame([bin_df.mean() for bin_df in bins])
