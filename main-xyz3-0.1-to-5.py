@@ -5,6 +5,13 @@ from algorithms.degree import degree
 import time
 import numpy as np
 import pandas as pd
+from multiprocessing import Pool
+
+n = 100
+step = 0.1
+stop = 3
+iterations = 2
+algorithms = [xyz_v3_algo, novac1_algo, degree]
 
 
 # returns list 3 items
@@ -29,19 +36,18 @@ def run_graph(algorithms, n, c, iterations=20) -> int:
     return results_alpha
 
 
-def main():
-    n = 1000
-    step = 0.1
-    stop = 10
-    iterations = 100
-    algorithms = [xyz_v3_algo, novac1_algo, degree]
-    #algorithm = novac1_algo
+def run_graph_for_parallel(c):
+    return run_graph(algorithms, n, c, iterations)
 
+
+def main():
     lambda_array = np.linspace(step, stop, num=int(1/step*stop))
-    results = [run_graph(algorithms, n, c, iterations) for c in lambda_array]
-    columns = [algo.__name__ for algo in algorithms]
-    df = pd.DataFrame(results, lambda_array, columns)
-    df.to_csv(f'./compare-results-n{n}.csv')
+
+    with Pool(3) as p:
+        results = p.map(run_graph_for_parallel, lambda_array)
+        columns = [algo.__name__ for algo in algorithms]
+        df = pd.DataFrame(results, lambda_array, columns)
+        df.to_csv(f'./compare-results-n{n}.csv')
 
 
 if __name__ == '__main__':
