@@ -6,6 +6,7 @@ import time
 import numpy as np
 import pandas as pd
 from multiprocessing import Pool
+from datetime import datetime
 
 n = 1000
 step = 0.1
@@ -19,6 +20,8 @@ def run_graph(algorithms, n, c, iterations=20) -> int:
     # print(running for c value: {c}')
     results = {algo.__name__: [] for algo in algorithms}
     for i in range(iterations):
+        if i % 10 == 0:
+            print(datetime.now(), f':: iteration {i}, c={c}')
         p = c / n
         orig = random_graph(n, p)
         for algo in algorithms:
