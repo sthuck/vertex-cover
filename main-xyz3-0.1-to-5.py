@@ -7,10 +7,10 @@ import numpy as np
 import pandas as pd
 from multiprocessing import Pool
 
-n = 100
+n = 1000
 step = 0.1
-stop = 3
-iterations = 2
+stop = 10
+iterations = 100
 algorithms = [xyz_v3_algo, novac1_algo, degree]
 
 
