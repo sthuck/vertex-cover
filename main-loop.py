@@ -24,10 +24,10 @@ def simple_becnh(fn):
 def main():
     # Definitions
     n = 1000
-    p = 3/1000
+    p = 0.5/1000
     e = 8
 
-    iterations = 1
+    iterations = 200
     # algorithms = [vsa, vsa_by_min, degree, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
     algorithms = [g_of_v_algo, degree]
 

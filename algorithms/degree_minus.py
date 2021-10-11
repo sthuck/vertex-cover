@@ -61,3 +61,4 @@ def degree_minus_expected(graph: Graph):
     not_in_a = {v for v in graph.vs if v not in A}
     bv_sigma = sum([b_v_divide_b_v_1(v) for v in not_in_a])
     return bv_sigma + len(A)
+

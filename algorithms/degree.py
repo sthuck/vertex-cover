@@ -1,7 +1,10 @@
+import math
 import numpy as np
 import random
 from igraph import Graph, Vertex
 from typing import List
+
+from g_of_v.g_of_v import compute_g_of_v
 from graph_utils import set_name, split_dataframe_to_averaged_bins
 from algorithms.reductions import reduce_graph
 import pandas as pd
@@ -14,12 +17,15 @@ def is_empty_graph(graph: Graph):
 def select_vertex(graph: Graph):
     v: Vertex
     degree_vector = [v.degree() for v in graph.vs]
+    g_of_v_vector = [compute_g_of_v(v) if v.degree() > 0 else -math.inf for v in graph.vs]
+
     random_vector = np.array([random.random() for i in range(len(degree_vector))])
     fake_degree_vector = random_vector + degree_vector
     max_index = np.argmax(fake_degree_vector)
     max_degree = degree_vector[max_index]
+    g_of_v_value = g_of_v_vector[max_index]
 
-    return graph.vs[max_index]['name'],max_degree
+    return graph.vs[max_index]['name'], max_degree, g_of_v_value
 
 
 def zero_vertices(graph: Graph, selected_vertices: List[str]):
@@ -34,6 +40,7 @@ def degree(_: np.ndarray, orig: Graph):
 
     cover_group = []
     cover_group_degree = []
+    cover_group_g_of_v = []
     removed_counter = 0
 
     while not is_empty_graph(graph):
@@ -46,13 +53,14 @@ def degree(_: np.ndarray, orig: Graph):
         if is_empty_graph(graph):
             break
 
-        selected_vertex, selected_max_degree = select_vertex(graph)
+        selected_vertex, selected_max_degree, selected_g_of_v = select_vertex(graph)
         cover_group_degree.append(selected_max_degree)
+        cover_group_g_of_v.append(selected_g_of_v)
 
         zero_vertices(graph, [selected_vertex])
         cover_group.append(selected_vertex)
 
-    return cover_group, removed_counter,(cover_group_degree,)
+    return cover_group, removed_counter, (cover_group_degree, cover_group_g_of_v)
 
 
 def print_g_of_v_extra_metadata(metadata):

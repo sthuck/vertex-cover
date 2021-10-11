@@ -5,14 +5,6 @@ from algorithms.degree import degree
 import time
 import numpy as np
 import pandas as pd
-from multiprocessing import Pool
-from datetime import datetime
-
-n = 1000
-step = 0.1
-stop = 10
-iterations = 100
-algorithms = [xyz_v3_algo, novac1_algo, degree]
 
 
 # returns list 3 items
@@ -20,8 +12,6 @@ def run_graph(algorithms, n, c, iterations=20) -> int:
     # print(running for c value: {c}')
     results = {algo.__name__: [] for algo in algorithms}
     for i in range(iterations):
-        if i % 10 == 0:
-            print(datetime.now(), f':: iteration {i}, c={c}')
         p = c / n
         orig = random_graph(n, p)
         for algo in algorithms:
@@ -39,18 +29,20 @@ def run_graph(algorithms, n, c, iterations=20) -> int:
     return results_alpha
 
 
-def run_graph_for_parallel(c):
-    return run_graph(algorithms, n, c, iterations)
-
-
 def main():
-    lambda_array = np.linspace(step, stop, num=int(1/step*stop))
+    n = 1000
+    step = 0.1
+    stop = 10
+    iterations = 1
+    algorithms = [xyz_v3_algo, novac1_algo, degree]
+    #algorithm = novac1_algo
 
-    with Pool(3) as p:
-        results = p.map(run_graph_for_parallel, lambda_array)
-        columns = [algo.__name__ for algo in algorithms]
-        df = pd.DataFrame(results, lambda_array, columns)
-        df.to_csv(f'./compare-results-n{n}.csv')
+    lambda_array = np.linspace(step, stop, num=int(1/step*stop))
+    lambda_array = [1.9]
+    results = [run_graph(algorithms, n, c, iterations) for c in lambda_array]
+    columns = [algo.__name__ for algo in algorithms]
+    df = pd.DataFrame(results, lambda_array, columns)
+    df.to_csv(f'./compare-results-n{n}.csv')
 
 
 if __name__ == '__main__':

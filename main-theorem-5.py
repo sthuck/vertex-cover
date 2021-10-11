@@ -7,35 +7,13 @@ import matplotlib.pyplot as plt
 from scipy import special
 
 def main():
-    what_graph = 'gnp'  # gnp | star | ring
     iterations = 1000000
     n = 1000
     c = 1
     results = []
 
-    # if what_graph == 'gnp':
-    rhs_a = (n / c) * (c - 1 + np.e ** (-c))
-    # rhs_b = (n / (2 * c)) * (np.e ** (-c) - 1) ** 2
-    rhs_b_1 = 1/(2*(c**3)*(np.exp(2*c)))
-    rhs_b_2 = 2*c*np.exp(c) * (np.exp(c) - 1 - special.expi(c) + np.log(c) + np.euler_gamma)
-    rhs_b_3 = 2*((c*np.exp(c)-np.exp(c)+1)**2)
-    rhs_b_4 = ((c**2 - 2*c) * np.exp(2*c)) + 4*c*np.exp(c) - c**2 - 2*c
-    rhs_b = rhs_b_1 * (rhs_b_2 - rhs_b_3 + rhs_b_4) * n
-
-    numerator = rhs_a
-    denominator = np.sqrt(rhs_b)
-
-    # if what_graph == 'gnp':
     graph: Graph = Graph.Erdos_Renyi(n, c / n)
     randomize = True
-    # elif what_graph == 'ring':
-    #     graph: Graph = Graph.Ring(n)
-    #     randomize = True
-    # elif what_graph == 'star':
-    #     graph: Graph = Graph.Star(n)
-    #     randomize = True
-    # else:
-    #     raise Exception("Bad what_graph value")
 
     for i in range(iterations):
         np_graph = graph_to_numpy(graph)
@@ -45,32 +23,22 @@ def main():
         if i % 100 == 0:
             print(f'iteration {i}')
         results.append(cover_group_size)
-    if what_graph == 'gnp':
-        theorem2_c = (np.array(results) - numerator)/denominator
-
+    results = np.array(results)
     print('=========')
-    avg = np.array(results).mean()
+    avg = results.mean()
     print(f'average: {avg}')
 
-    if what_graph == 'gnp':
-        print(f'rhs_a {rhs_a}')
-
-    variance = np.array(results).var()
+    variance = results.var()
     print(f'variance: {variance}')
+    np.save('theorem5.npy', results)
+    bins = np.max(results)-np.min(results)
+    results = (results - avg)/np.sqrt(variance)
+    plot_hist(results, bins)
 
-    if what_graph == 'gnp':
-        print(f'rhs_b {rhs_b}')
-        np.save('theorem2_c.npy', theorem2_c)
-        plot_hist(theorem2_c)
-
-    if what_graph == 'star':
-        expectation = (n**2 + n-2)/(2*n)
-        print(f'star expectation: {expectation}')
     return results
 
 
-def plot_hist(x):
-    num_bins = 50
+def plot_hist(x, num_bins=50):
 
     mu = 0  # mean of distribution
     sigma = 1  # standard deviation of distribution
@@ -86,7 +54,7 @@ def plot_hist(x):
     ax.plot(bins, y, '--')
     ax.set_xlabel('')
     ax.set_ylabel('Probability density')
-    ax.set_title(r'Theorem 2c')
+    ax.set_title(r'')
 
     # Tweak spacing to prevent clipping of ylabel
     fig.tight_layout()

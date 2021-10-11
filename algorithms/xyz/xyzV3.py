@@ -11,10 +11,13 @@ from typing import List, Union, Tuple
 import random
 
 
-def find_minimum(arr: np.ndarray):
+def find_minimum(arr: np.ndarray, vertex_degree_vector):
     minimum = float("inf")
     minimum_index = []
     for index, num in enumerate(arr):
+        if vertex_degree_vector[index] == 0:
+            continue  # don't pick 0 degree vertices
+
         if num == minimum:
             minimum_index += [index]
         elif num > minimum:
@@ -33,14 +36,16 @@ def xyz_select_vertex(graph: Graph) -> Union[int, None]:
     if is_empty_graph_sparse(sparse):
         return None
 
-    vertex_degree_vector = all_vertex_degree(sparse)
+    vertex_degree_vector = all_vertex_degree(sparse) # vector of all degrees per vertex
 
-    x_vector = get_x_vector(vertex_degree_vector)
+    x_vector = get_x_vector(vertex_degree_vector) # vector of, for v in V, d(v)/d(v)+1
     y_vector = get_y_vector(sparse, x_vector)
     z_vector = get_z_vector(sparse, vertex_degree_vector)
 
     diff_vector = z_vector - y_vector
-    return find_minimum(diff_vector)
+    selected_index = find_minimum(diff_vector, vertex_degree_vector)
+
+    return selected_index
 
 
 def zero_vertices(graph: Graph, selected_vertices: List[int]):

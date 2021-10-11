@@ -8,6 +8,7 @@ def get_z_vector(sparse: sp.spmatrix, vertex_degree_vector) -> np.ndarray:
     degree_minus_1_vector = np.select([vertex_degree_vector > 0, vertex_degree_vector == 0],
                                       [vertex_degree_vector - 1,
                                        vertex_degree_vector])
+    # 4 5 0 0 7 ... 3 4 0 0 6
     temp_x_vector = get_x_vector(degree_minus_1_vector)
     z_vector = (temp_x_vector * sparse) + 1
     return z_vector
