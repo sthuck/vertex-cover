@@ -6,9 +6,9 @@ import random
 
 
 class Color(Enum):
-    BLACK = 1
-    WHITE = 2
-    UNCOLORED = 3
+    BLACK = '#000000'
+    WHITE = '#ffffff'
+    UNCOLORED = '#787b80'
 
 
 def is_neighbor_of_black(vertex: Vertex):
@@ -23,7 +23,7 @@ def count_white(g: Graph):
     return sum([1 for v in g.vs if v['color'] == Color.WHITE])
 
 
-def do_iteration(g: Graph, n: int):
+def do_iteration(g: Graph, n: int, iteration_num):
     black_vertices = set(random.sample(range(n), b))
     vertex: Vertex
     for vertex in g.vs:
@@ -33,13 +33,26 @@ def do_iteration(g: Graph, n: int):
         if not is_neighbor_of_black(vertex):
             vertex['color'] = Color.WHITE
 
+    if iteration_num == 1:
+        print([v['color'] for v in g.vs ])
+        g_colored = g.copy()
+        for v in g.vs:
+            v['color'] = v['color'].value
+        with open('bwc_after_coloring.svg', 'w') as f:
+            g_colored.write_svg(f)
+
     return count_white(g)
 
 
 if __name__ == '__main__':
-    n = 3
-    m = 2
-    graph: Graph = Graph.Erdos_Renyi(n=n, m=m)
+    n = 4
+    m = 20
+    #graph: Graph = Graph.Erdos_Renyi(n=n, m=m)
+    graph = Graph.Ring(n, circular=False)
+
+    with open('bwc.svg', 'w') as f:
+        graph.write_svg(f)
+
     iterations = 1000
     b = 2
 
@@ -50,12 +63,11 @@ if __name__ == '__main__':
         if i % 10 == 0:
             print(f'iteration {i}')
         g: Graph = graph.copy()
-        result = do_iteration(g, n)
+        result = do_iteration(g, n, i)
         results.append(result)
 
     results_series = pd.Series(results)
     print(f'mean: {results_series.mean()}, variance: {results_series.var()}')
-
 
 
 
