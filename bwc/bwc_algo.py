@@ -12,25 +12,29 @@ import random
 #  sum over v in (G.vs - C):
 
 def computeE_w_helper(degree, n, b):
-    numerator = np.prod([(n-(degree + i)) for i in range(1, b+1)])
-    denumerator =  np.prod([(n-i) for i in range(0, b+2)])
+    numeratorSet = set([(n-(degree + i)) for i in range(1, b+1)])
+    denumSet = set([(n-i) for i in range(0, b)]) #0 to b-1
+    inBoth = numeratorSet.intersection(denumSet)
+    numeratorV = np.array(list(numeratorSet - inBoth)).astype(np.float64)
+    denumeratorV = np.array(list(denumSet - inBoth)).astype(np.float64)
+
+    numerator = np.prod(numeratorV) # [3,4,10]
+    denumerator = np.prod(denumeratorV)
     return numerator/denumerator
 
 
 def computeE_w(selected_vertex: Vertex, graph: Graph, C: Set[int], b: int) -> float:
     copy: Graph = graph.copy()
-    C2 = C.union([n['orig_index'] for n in selected_vertex.neighbors()])
+    C2 = C.union([neighbor['orig_index'] for neighbor in selected_vertex.neighbors()])
     copy.delete_vertices(selected_vertex.index)
-    return sum([computeE_w_helper(v.degree(), len(copy.vs), b) for v in copy.vs if v['orig_index'] not in C2])
+    if b == 1:
+        new_N = len(copy.vs)
+        return new_N - len(C2)
+    else:
+        return sum([computeE_w_helper(v.degree(), len(copy.vs), b-1) for v in copy.vs if v['orig_index'] not in C2])
 
 
-def main():
-    n = 1000
-    c = 0.5
-    p = c / n
-    initial_b = 10
-    graph: Graph = Graph.Erdos_Renyi(n=n, p=p)
-
+def bwc_algo(graph: Graph, initial_b):
     b = initial_b
     C = set()
     v: Vertex
@@ -40,16 +44,27 @@ def main():
 
     while b > 0:
         print(f'b={b}')
-        E_w_vector = [(v, computeE_w(v, graph, C, b)) for v in graph.vs if v['orig_index'] not in C]
+        E_w_vector = [(v, computeE_w(v, graph, C, b)) for v in graph.vs]
         max_Ew_vertex = max(E_w_vector, key=lambda x: x[1])[0]
         C = C.union(n['orig_index'] for n in max_Ew_vertex.neighbors())
         C = C - {max_Ew_vertex['orig_index']}
         graph.delete_vertices(max_Ew_vertex.index)
         b = b - 1
+    return graph, C
+
+def main():
+    n = 1000
+    c = 1
+    p = c / n
+    initial_b = 10
+    graph: Graph = Graph.Erdos_Renyi(n=n, p=p)
+
+    graph, C = bwc_algo(graph, initial_b)
 
     print(f'n={len(graph.vs)}')
     print(f'C = {len(C)}')
     print(f'w = {len(graph.vs) - len(C)}')
+
 
 
 if __name__ == '__main__':
@@ -76,3 +91,4 @@ if __name__ == '__main__':
 #  remove selectd_vertex from G2
 #  C2 = C union N(selected_vertex)
 #  sum over v in (G.vs - C):
+
