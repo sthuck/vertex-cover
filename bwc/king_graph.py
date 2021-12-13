@@ -31,6 +31,7 @@ class ChessGraphGenerator(ABC):
                 index = self._coordinate_to_index(i, j)
                 neighbors = self._get_neighbors(i, j)
                 total_edges += [(index, self._coordinate_to_index(x, y)) for x, y in neighbors]
+        total_edges = [(source, target) for (source, target) in total_edges if source < target]
         return total_edges
 
 
@@ -73,8 +74,3 @@ def king_graph(n: int, m: int):
     edges = helper.get_edges()
     graph = Graph(n * m, edges=edges)
     return graph
-
-
-if __name__ == '__main__':
-    graph = rook_graph(4,4)
-    graph.write_svg('./king-graph.svg', layout='grid')

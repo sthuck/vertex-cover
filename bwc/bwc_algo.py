@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from enum import Enum
 import random
+from king_graph import rook_graph, king_graph
 
 # function compute E_w(G, C, selcted_vertex):
 #  G2 = G.copy()
@@ -58,6 +59,9 @@ def main():
     p = c / n
     initial_b = 10
     graph: Graph = Graph.Erdos_Renyi(n=n, p=p)
+    # graph = king_graph(n=10, m=10)
+    graph = rook_graph(n=30, m=30)
+
 
     graph, C = bwc_algo(graph, initial_b)
 
