@@ -10,6 +10,7 @@ from algorithms.neighbors_algo import neighbors_algo
 from algorithms.xyz_neighbors_combined import xyz_neighbors_combined_algo
 from algorithms.most_neighbors_with_minimal_degree import most_neighbors_with_minimal_degree_algo
 from algorithms.novac1 import novac1_algo
+from algorithms.xyz import xyz_v3_algo_with_reductions
 
 
 def simple_becnh(fn):
@@ -41,15 +42,15 @@ def main():
         "c-fat500-10.clq",
         "c-fat500-2.clq",
         "c-fat500-5.clq",
-        "C1000.9.clq",
-        "C125.9.clq",
-        "C2000.5.clq",
-        "C2000.9.clq",
-        "C250.9.clq",
-        "C4000.5.clq",
-        "C500.9.clq",
-        "DSJC1000_5.clq",
-        "DSJC500_5.clq",
+        # "C1000.9.clq",
+        # "C125.9.clq",
+        # "C2000.5.clq",
+        # "C2000.9.clq",
+        # "C250.9.clq",
+        # "C4000.5.clq",
+        # "C500.9.clq",
+        # "DSJC1000_5.clq",
+        # "DSJC500_5.clq",
         "gen200_p0.9_44.clq",
         "gen200_p0.9_55.clq",
         "gen400_p0.9_55.clq",
@@ -68,8 +69,8 @@ def main():
         "keller4.clq",
         "keller5.clq",
         "keller6.clq",
-        "MANN_a27.clq",
-        "MANN_a45.clq",
+        # "MANN_a27.clq",
+        # "MANN_a45.clq",
         "MANN_a81.clq",
         "MANN_a9.clq",
         "p_hat1000-1.clq",
@@ -97,11 +98,11 @@ def main():
         "san400_0.7_1.clq",
         "san400_0.7_2.clq",
         "san400_0.7_3.clq",
-        "san400_0.9_1.clq",
-        "sanr200_0.7.clq",
-        "sanr200_0.9.clq",
-        "sanr400_0.5.clq",
-        "sanr400_0.7.clq",
+        # "san400_0.9_1.clq",
+        # "sanr200_0.7.clq",
+        # "sanr200_0.9.clq",
+        # "sanr400_0.5.clq",
+        # "sanr400_0.7.clq",
         # "frb/frb100-40.mis",
         # "frb/frb30-15-1.mis",
         # "frb/frb30-15-2.mis",
@@ -147,7 +148,7 @@ def main():
     ]
 
     # algorithms = [vsa, vsa_by_min, C, shaked_algo, shaked_algo_impl, xyz_algo, xyz_v2_algo, xyz_larger_diff_algo, first_vertex_with_degree_algo, neighbors_algo]
-    algorithms = [degree_minus, shaked_algo_impl_v2]
+    algorithms = [xyz_v3_algo, xyz_v3_algo_with_reductions, novac1_algo, degree]
 
     # End Definitions
 
@@ -172,7 +173,7 @@ def main():
             try:
                 result = algorithm(np_graph_copy, graph)
                 if any(name == algorithm.__name__ for name in
-                       ['xyz_v3_algo', 'xyz_weak_algo', 'novac1_algo', 'degree']):
+                       ['xyz_v3_algo', 'xyz_weak_algo', 'novac1_algo', 'degree', 'xyz_v3_algo_with_reductions']):
                     print(algorithm.__name__, '::', len(result[0]) + result[1])
                     stats.update({algorithm.__name__: len(result[0]) + result[1]})
 

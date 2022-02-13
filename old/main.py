@@ -1,5 +1,5 @@
 from graph_utils import *
-from algorithms.xyz import xyz_v2_algo, xyz_v3_algo
+from algorithms.xyz import xyz_v2_algo, xyz_v3_algo, xyz_v3_algo_with_reductions
 from algorithms.novac1 import novac1_algo
 from algorithms.degree_minus import degree_minus
 from algorithms.shaked_algo_impl_v2 import shaked_algo_impl_v2
@@ -15,11 +15,11 @@ def simple_bench(fn):
 
 def main():
     # Definition
-    n = 100
-    c = 2
+    n = 1000
+    c = 5
     p = c / n
     # All options: vsa, vsa_by_min, shaked_algo_impl_v2, degree, degree_minus
-    algorithms = [novac1_algo, xyz_v3_algo]
+    algorithms = [xyz_v3_algo, xyz_v3_algo_with_reductions]
 
     # random graph:
     orig = random_graph(n, p)
@@ -31,7 +31,7 @@ def main():
         graph = orig.copy()
         np_graph = np_orig.copy()
 
-        print('Number of parents of leaves', count_parents_of_leaves(graph))
+        # print('Number of parents of leaves', count_parents_of_leaves(graph))
         # Algorithm
         result = algorithm(np_graph, graph)
 
@@ -46,7 +46,7 @@ def main():
             write_to_file(f'out-{algorithm.__name__}.svg', graph, vertices)
             write_to_graphml(graph, vertices, f'out-{algorithm.__name__}')
 
-            print(vertices)
+            # print(vertices)
             print('vertex cover length:', len(vertices))
             # is_legal = check_if_legal_vertex_cover(graph_to_numpy(graph), result)
             # print('Checking if we got a valid vertex cover...', 'YES' if is_legal else 'NO')

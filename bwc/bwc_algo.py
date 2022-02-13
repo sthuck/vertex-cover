@@ -60,7 +60,7 @@ def main():
     initial_b = 10
     graph: Graph = Graph.Erdos_Renyi(n=n, p=p)
     # graph = king_graph(n=10, m=10)
-    graph = rook_graph(n=30, m=30)
+    graph = rook_graph(n=6, m=9)
 
 
     graph, C = bwc_algo(graph, initial_b)
@@ -77,7 +77,7 @@ if __name__ == '__main__':
 # g = G(n, p)
 # initial_b=b <= input
 # B = {} // at the end |B| should be b
-# output w: |W={group of veritices|
+# output w: |W={group of vertices|
 # W = {}
 # while B not empty:
 # iterate until |B| = initial_b or b = 0
@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
 # function compute E_w(G, C, selcted_vertex):
 #  G2 = G.copy()
-#  remove selectd_vertex from G2
+#  remove selected_vertex from G2
 #  C2 = C union N(selected_vertex)
 #  sum over v in (G.vs - C):
 

@@ -16,7 +16,7 @@ import pandas as pd
 def main():
     # Definitions
     n = 1000
-    ps = [3/1000, 1/1000, 10/1000]
+    ps = [3/1000]
     results = []
     for p in ps:
         graph = random_graph(n, p)

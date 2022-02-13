@@ -1,5 +1,5 @@
 from graph_utils import *
-from algorithms.xyz import xyz_v2_algo, xyz_v3_algo
+from algorithms.xyz import xyz_v2_algo, xyz_v3_algo, xyz_v3_algo_with_reductions
 from algorithms.novac1 import novac1_algo
 from algorithms.degree import degree
 import time
@@ -9,9 +9,10 @@ import pandas as pd
 
 # returns list 3 items
 def run_graph(algorithms, n, c, iterations=20) -> int:
-    # print(running for c value: {c}')
+    print(f'running for c value: {c}')
     results = {algo.__name__: [] for algo in algorithms}
     for i in range(iterations):
+        print(f'running iteration {i}')
         p = c / n
         orig = random_graph(n, p)
         for algo in algorithms:
@@ -31,14 +32,14 @@ def run_graph(algorithms, n, c, iterations=20) -> int:
 
 def main():
     n = 1000
-    step = 0.1
+    step = 0.5
     stop = 10
-    iterations = 1
-    algorithms = [xyz_v3_algo, novac1_algo, degree]
+    iterations = 50
+    algorithms = [xyz_v3_algo, xyz_v3_algo_with_reductions, novac1_algo, degree]
     #algorithm = novac1_algo
 
     lambda_array = np.linspace(step, stop, num=int(1/step*stop))
-    lambda_array = [1.9]
+    # lambda_array = [1.9]
     results = [run_graph(algorithms, n, c, iterations) for c in lambda_array]
     columns = [algo.__name__ for algo in algorithms]
     df = pd.DataFrame(results, lambda_array, columns)
