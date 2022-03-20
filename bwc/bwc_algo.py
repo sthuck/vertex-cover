@@ -57,10 +57,11 @@ def main():
     n = 1000
     c = 1
     p = c / n
-    initial_b = 10
+    initial_b = 70
+
     graph: Graph = Graph.Erdos_Renyi(n=n, p=p)
-    # graph = king_graph(n=10, m=10)
-    graph = rook_graph(n=6, m=9)
+    #graph = king_graph(n=21, m=20)
+    graph = rook_graph(n=15, m=10)
 
 
     graph, C = bwc_algo(graph, initial_b)

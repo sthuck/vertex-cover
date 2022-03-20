@@ -22,7 +22,7 @@ class ChessGraphGenerator(ABC):
         pass
 
     def _coordinate_to_index(self, x, y):
-        return y * self.m + x
+        return y * self.n + x
 
     def get_edges(self):
         total_edges: List[Tuple[int, int]] = []

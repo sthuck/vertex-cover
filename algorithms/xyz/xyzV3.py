@@ -65,9 +65,15 @@ def xyz_v3_algo(_, orig: Graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=
     return _xyz_v3_algo_base(_, orig, do_reduce_1, do_reduce_2, do_reduce_3)
 
 
-def xyz_v3_algo_with_reductions(_, orig: Graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=False):
+def xyz_v3_algo_with_reductions(_, orig: Graph, do_reduce_1=True, do_reduce_2=True, do_reduce_3=True):
     return _xyz_v3_algo_base(_, orig, do_reduce_1=do_reduce_1, do_reduce_2=do_reduce_2,
                                                    do_reduce_3=do_reduce_3)
+
+
+def xyz_v3_algo_without_reductions(_, orig: Graph):
+    return _xyz_v3_algo_base(_, orig, do_reduce_1=False, do_reduce_2=False,
+                                                   do_reduce_3=False)
+
 
 
 def _xyz_v3_algo_base(_, orig: Graph, do_reduce_1=False, do_reduce_2=False, do_reduce_3=False):

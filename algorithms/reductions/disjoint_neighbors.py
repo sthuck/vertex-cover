@@ -9,32 +9,41 @@ def remove_vertices_with_2_disjoint_neighbors(graph: Graph):
     how_many_removed = 0
 
     while True:
-        vertex: Vertex = next(filter(lambda v: v.degree() == 2, graph.vs), None)
+        iterator = filter(lambda v: v.degree() == 2, graph.vs)
+        how_many_removed_this_iteration = 0
 
-        if vertex is None:
+        while True:
+            vertex: Vertex = next(iterator, None)
+
+            if vertex is None:
+                break
+
+            ## if neighbors are connected
+            # if is_neighbors(vertex.neighbors()):
+                # graph.delete_vertices([vertex] + vertex.neighbors())
+                # how_many_removed += 2
+                # continue
+
+            # if neighbors are not connected
+            if not is_neighbors(vertex.neighbors()):
+                neighbors: List[Vertex] = vertex.neighbors()
+                neighbors_of_neighbors = {n['name'] for n in neighbors[0].neighbors() if n.index != vertex.index}.union(
+                                         {n['name'] for n in neighbors[1].neighbors() if n.index != vertex.index})
+
+                graph.delete_vertices([vertex] + neighbors)
+
+                graph.add_vertex(name=f'new-iteration{global_counter_for_vertex_name}')
+                new_vertex: Vertex = graph.vs.find(name=f'new-iteration{global_counter_for_vertex_name}')
+
+                global_counter_for_vertex_name += 1
+
+                for n in neighbors_of_neighbors:
+                    graph.add_edge(new_vertex, n)
+                how_many_removed_this_iteration += 1
+
+        how_many_removed += how_many_removed_this_iteration
+        if how_many_removed_this_iteration == 0:
             break
-
-        # if neighbors are connected
-        if is_neighbors(vertex.neighbors()):
-            graph.delete_vertices([vertex] + vertex.neighbors())
-            how_many_removed += 2
-            continue
-
-        # if neighbors are not connected
-        neighbors: List[Vertex] = vertex.neighbors()
-        neighbors_of_neighbors = {n['name'] for n in neighbors[0].neighbors() if n.index != vertex.index}.union(
-                                 {n['name'] for n in neighbors[1].neighbors() if n.index != vertex.index})
-
-        graph.delete_vertices([vertex] + neighbors)
-
-        graph.add_vertex(name=f'new-iteration{global_counter_for_vertex_name}')
-        new_vertex: Vertex = graph.vs.find(name=f'new-iteration{global_counter_for_vertex_name}')
-
-        global_counter_for_vertex_name += 1
-
-        for n in neighbors_of_neighbors:
-            graph.add_edge(new_vertex, n)
-        how_many_removed = how_many_removed + 1
 
     return how_many_removed
 

@@ -1,0 +1,1 @@
+from .king_graph import rook_graph,king_graph
