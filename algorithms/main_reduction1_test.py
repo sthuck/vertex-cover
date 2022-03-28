@@ -9,41 +9,46 @@ from typing import List
 from igraph import Graph
 
 def stand_alone_run():
-    n = 1000
-    start = 2.65
-    step = 0.01
-    stop = 2.65
-    iterations = 1
-    lambda_array = np.arange(start, stop + step, step)
+    n = 1000000
+    c = 2.65
+    # step = 0.01
+    # stop = 2.69
+    iterations =20
+    # lambda_array = np.arange(start, stop + step, step)
 
-    for c in lambda_array:
-        p = c / n
+    p = c / n
+    results = {}
+    for i in range(iterations):
+        results[i] = {}
+        print(f'c: {c}, iteration {i}:')
+        graph = random_graph(n, p)
+        set_name(graph)
 
-        for i in range(iterations):
-            print(f'c: {c}, iteration {i}:')
-            graph = random_graph(n, p)
-            set_name(graph)
+        add_to_cover, removed_count = reduce_graph(graph, do_reduce_1=True, do_reduce_2=False, do_reduce_3=False)
+        print(f'1. how many added to cover: {len(add_to_cover) + removed_count}')
+        results[i]['how many added to cover'] = len(add_to_cover) + removed_count
+        # 1. how many added to cover
+        # 2. how many left in graph
+        print(f'2. how many left in graph: {len(graph.vs)}')
+        results[i]['how many left in graph'] = len(graph.vs)
 
-            add_to_cover, removed_count = reduce_graph(graph, do_reduce_1=True, do_reduce_2=False, do_reduce_3=False)
-            print(f'1. how many added to cover: {len(add_to_cover) + removed_count}')
-            # 1. how many added to cover
-            # 2. how many left in graph
-            print(f'2. how many left in graph: {len(graph.vs)}')
-            # 3. for each cc, is it a circle (every vertex degree is 2, vertex_number = Edge number)
-            for component in graph.components():
-                is_component_circle = is_circle(graph, component)
-                print(f'cc: is circle {is_component_circle}')
-                if not is_component_circle:
-                    print(f'\t cc size: {len(component)}')
+        # 3. for each cc, is it a circle (every vertex degree is 2, vertex_number = Edge number)
+        connected_components_not_circle = len([component for component in graph.components() if not is_circle(graph, component)])
+        print(f'3. how many connected components not circles: {connected_components_not_circle}')
+        results[i]['how many connected components not circles'] = connected_components_not_circle
+
+    df = pd.DataFrame(results)
+    df.to_csv('../main_reduction1_test.csv')
+    return df
 
 
 def is_circle(graph: Graph, vertex_list: List[int]):
+    is_isolated = len(vertex_list) == 1 and graph.vs[vertex_list[0]].degree() == 0
     all_degree_2 = all(graph.vs[v].degree() == 2 for v in vertex_list)
-    subgraph = graph.subgraph(vertex_list)
-    edge_number_equal_n = len(subgraph.es) == len(vertex_list)
-    return all_degree_2 and edge_number_equal_n
+
+    return is_isolated or all_degree_2
 
 
 #    return
 if __name__ == "__main__":
-    stand_alone_run()
+    df = stand_alone_run()

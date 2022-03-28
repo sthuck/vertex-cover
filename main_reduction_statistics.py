@@ -7,11 +7,11 @@ import pandas as pd
 import numpy as np
 
 def stand_alone_run():
-    n = 10000
+    n = 1000000
     start = 2.65
     step = 0.01
     stop = 2.75
-    iterations = 50
+    iterations = 1
     lambda_array = np.arange(start, stop + step, step)
    #algorithms = [degree]
 
