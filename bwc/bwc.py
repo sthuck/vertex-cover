@@ -19,11 +19,8 @@ def is_neighbor_of_black(vertex: Vertex):
     return False
 
 
-def count_white(g: Graph):
-    return sum([1 for v in g.vs if v['color'] == Color.WHITE])
-
-
-def do_iteration(g: Graph, n: int, iteration_num):
+def bwc_random_algo(g: Graph, b: int):
+    n = len(g.vs)
     black_vertices = set(random.sample(range(n), b))
     vertex: Vertex
     for vertex in g.vs:
@@ -33,6 +30,14 @@ def do_iteration(g: Graph, n: int, iteration_num):
         if not is_neighbor_of_black(vertex):
             vertex['color'] = Color.WHITE
 
+    W = set(v for v in g.vs if v['color'] == Color.WHITE)
+
+    return g, W
+
+
+def do_iteration(g: Graph, b: int, iteration_num):
+    g, C = bwc_random_algo(g, b)
+
     if iteration_num == 1:
         print([v['color'] for v in g.vs ])
         g_colored = g.copy()
@@ -41,7 +46,7 @@ def do_iteration(g: Graph, n: int, iteration_num):
         with open('bwc_after_coloring.svg', 'w') as f:
             g_colored.write_svg(f)
 
-    return count_white(g)
+    return len(C)
 
 
 if __name__ == '__main__':
@@ -63,7 +68,7 @@ if __name__ == '__main__':
         if i % 10 == 0:
             print(f'iteration {i}')
         g: Graph = graph.copy()
-        result = do_iteration(g, n, i)
+        result = do_iteration(g, b, i)
         results.append(result)
 
     results_series = pd.Series(results)

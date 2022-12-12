@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from enum import Enum
 import random
-from king_graph import rook_graph, king_graph
+from bwc.king_graph import rook_graph, king_graph
 
 # function compute E_w(G, C, selcted_vertex):
 #  G2 = G.copy()
@@ -13,6 +13,8 @@ from king_graph import rook_graph, king_graph
 #  sum over v in (G.vs - C):
 
 def computeE_w_helper(degree, n, b):
+    #numerator = Multi[n-(degree + b)..n-(degree+1)]
+    #den= n...(n-(b-1))
     numeratorSet = set([(n-(degree + i)) for i in range(1, b+1)])
     denumSet = set([(n-i) for i in range(0, b)]) #0 to b-1
     inBoth = numeratorSet.intersection(denumSet)
@@ -37,43 +39,23 @@ def computeE_w(selected_vertex: Vertex, graph: Graph, C: Set[int], b: int) -> fl
 
 def bwc_algo(graph: Graph, initial_b):
     b = initial_b
-    C = set()
+    C: Set[int] = set()
     v: Vertex
 
     for v in graph.vs:
         v['orig_index'] = v.index
 
     while b > 0:
-        print(f'b={b}')
+        #print(f'b={b}')
         E_w_vector = [(v, computeE_w(v, graph, C, b)) for v in graph.vs]
         max_Ew_vertex = max(E_w_vector, key=lambda x: x[1])[0]
         C = C.union(n['orig_index'] for n in max_Ew_vertex.neighbors())
         C = C - {max_Ew_vertex['orig_index']}
         graph.delete_vertices(max_Ew_vertex.index)
         b = b - 1
-    return graph, C
+    W = set(v for v in graph.vs if v['orig_index'] not in C)
+    return graph, W
 
-def main():
-    n = 1000
-    c = 1
-    p = c / n
-    initial_b = 70
-
-    graph: Graph = Graph.Erdos_Renyi(n=n, p=p)
-    #graph = king_graph(n=21, m=20)
-    graph = rook_graph(n=15, m=10)
-
-
-    graph, C = bwc_algo(graph, initial_b)
-
-    print(f'n={len(graph.vs)}')
-    print(f'C = {len(C)}')
-    print(f'w = {len(graph.vs) - len(C)}')
-
-
-
-if __name__ == '__main__':
-    main()
 
 # g = G(n, p)
 # initial_b=b <= input

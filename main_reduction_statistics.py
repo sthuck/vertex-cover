@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 
 def stand_alone_run():
-    n = 1000000
+    n = 10000
     start = 2.65
     step = 0.01
     stop = 2.65
@@ -23,11 +23,11 @@ def stand_alone_run():
 
         total_stats_reduce_1_only = {'cover_size': [], 'removed_in_reductions': [], 'removed first iteration reduction1': []}
         total_stats_reduce_1_and_3 = {'cover_size': [], 'removed_in_reductions': [], 'removed first iteration reduction1': []}
-        total_stats_reduce_1_and_3_and_2 = {'cover_size': [], 'removed_in_reductions': [], 'removed first iteration reduction1': []}
+      # total_stats_reduce_1_and_3_and_2 = {'cover_size': [], 'removed_in_reductions': [], 'removed first iteration reduction1': []}
         total_stats_reduce_1_and_2 = {'cover_size': [], 'removed_in_reductions': [], 'removed first iteration reduction1':[]}
         args_reduce_1_only = {'do_reduce_1': True, 'do_reduce_2': False, 'do_reduce_3': False}
         args_reduce_1_and_3 = {'do_reduce_1': True, 'do_reduce_2': False, 'do_reduce_3': True}
-        args_reduce_1_and_3_and_2 = {'do_reduce_1': True, 'do_reduce_3': True, 'do_reduce_2': True}
+       # args_reduce_1_and_3_and_2 = {'do_reduce_1': True, 'do_reduce_3': True, 'do_reduce_2': True}
         args_reduce_1_and_2 = {'do_reduce_1': True, 'do_reduce_2': True, 'do_reduce_3': False}
 
        # algorithms_results = {algo.__name__: [] for algo in algorithms}
@@ -44,8 +44,7 @@ def stand_alone_run():
             #    cover_size = len(cover_group) + removed_counter
             #   algorithms_results[algo.__name__].append(cover_size)
 
-            for (stats, args) in [(total_stats_reduce_1_and_3, args_reduce_1_and_3), (total_stats_reduce_1_and_3_and_2,
-                                                                                      args_reduce_1_and_3_and_2)]:
+            for (stats, args) in [(total_stats_reduce_1_and_3, args_reduce_1_and_3),]:
                 graph = orig.copy()
 
                 cover_group, removed_counter, *extra = xyz_v3_algo_with_reductions(None, graph, **args)
@@ -60,10 +59,10 @@ def stand_alone_run():
         m1 = df1.mean()
         m1 = m1.rename({k: f'r1+r4:{k}' for k in m1.index})
 
-        df2 = pd.DataFrame(total_stats_reduce_1_and_3_and_2)
-        m2 = df2.mean()
-        m2 = m2.rename({k: f'r1+r4+r2:{k}' for k in m2.index})
-        series = pd.concat([m1, m2])
+       # df2 = pd.DataFrame(total_stats_reduce_1_and_3_and_2)
+       # m2 = df2.mean()
+       # m2 = m2.rename({k: f'r1+r4+r2:{k}' for k in m2.index})
+        series = pd.concat([m1])
         reductions_total_results.insert(len(reductions_total_results.columns), c, series)
 
       #  algorithms_results = [algorithms_results[algo.__name__] for algo in algorithms]  # 3 x iterations

@@ -14,8 +14,8 @@ import pandas as pd
 
 
     # Definitions
-n = 10000
-p = 3/10000
+n = 1000
+p = 2/1000
 
 graph = random_graph(n, p)
 

@@ -70,6 +70,11 @@ def xyz_v3_algo_with_reductions(_, orig: Graph, do_reduce_1=True, do_reduce_2=Tr
                                                    do_reduce_3=do_reduce_3)
 
 
+def xyz_v3_algo_only_with_leaf_parent_reduction(_, orig: Graph):
+    return _xyz_v3_algo_base(_, orig, do_reduce_1=True, do_reduce_2=False,
+                                                   do_reduce_3=False)
+
+
 def xyz_v3_algo_without_reductions(_, orig: Graph):
     return _xyz_v3_algo_base(_, orig, do_reduce_1=False, do_reduce_2=False,
                                                    do_reduce_3=False)
