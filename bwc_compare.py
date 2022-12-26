@@ -10,8 +10,8 @@ import pandas as pd
 def main():
     n = 1000
     initial_b = 250
-    iteration = 20
-    step = 1
+    iteration = 100
+    step = 0.1
     stop = 10
     algorithms = [bwc_algo, bwc_min_algo]
     # , bwc_algo, bwc_random_algo, bwc_min_algo, bwc_degree_algo,

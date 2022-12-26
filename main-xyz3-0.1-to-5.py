@@ -76,7 +76,7 @@ def main():
     # stop = 10
     #step = 100
     #stop = 100
-    iterations = 50
+    iterations = 100
     # algorithms = [xyz_v3_algo, xyz_v3_algo_with_reductions, novac1_algo, degree]
     algorithms = [xyz_v3_algo_without_reductions, xyz_v3_algo_only_with_leaf_parent_reduction]
 
