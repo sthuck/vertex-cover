@@ -27,6 +27,9 @@ def main():
         results: Dict[str, List[int]] = {algo.__name__: [] for algo in algorithms}
         for i in range(iteration):
             print(f'lambda {c}, iteration {i}')
+            with open("bwc.log", "a") as f:
+                f.write(f'lambda {c}, iteration {i}')
+                f.flush()
             for algo in algorithms:
                 copy = graph.copy()
                 _, W = algo(copy, initial_b)
