@@ -26,7 +26,7 @@ def main():
         graph: Graph = Graph.Erdos_Renyi(n=n, p=p)
         results: Dict[str, List[int]] = {algo.__name__: [] for algo in algorithms}
         for i in range(iteration):
-            print(f'iteration {i}')
+            print(f'lambda {c}, iteration {i}')
             for algo in algorithms:
                 copy = graph.copy()
                 _, W = algo(copy, initial_b)
