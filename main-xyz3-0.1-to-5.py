@@ -1,5 +1,4 @@
 from graph_utils import *
-from fitter import Fitter
 
 from algorithms.xyz import xyz_v2_algo, xyz_v3_algo, xyz_v3_algo_with_reductions, \
     xyz_v3_algo_only_with_leaf_parent_reduction, xyz_v3_algo_without_reductions
