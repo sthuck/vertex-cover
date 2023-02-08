@@ -1,4 +1,6 @@
 from graph_utils import *
+from fitter import Fitter
+
 from algorithms.xyz import xyz_v2_algo, xyz_v3_algo, xyz_v3_algo_with_reductions, \
     xyz_v3_algo_only_with_leaf_parent_reduction, xyz_v3_algo_without_reductions
 from algorithms.novac1 import novac1_algo
@@ -67,7 +69,7 @@ def run_graph(algorithms, n, c, iterations=20) -> int:
     # results_alpha = results_averaged/n
 
     print(f'alpha for c: {c} is: {results_averaged}')
-    return results_averaged
+    return results_averaged, result_list[0],result_list[1]
 
 
 def main():
@@ -76,9 +78,9 @@ def main():
     # stop = 10
     #step = 100
     #stop = 100
-    iterations = 100
+    iterations = 5000
     # algorithms = [xyz_v3_algo, xyz_v3_algo_with_reductions, novac1_algo, degree]
-    algorithms = [xyz_v3_algo_without_reductions, xyz_v3_algo_only_with_leaf_parent_reduction]
+    algorithms = [xyz_v3_algo_without_reductions, xyz_v3_algo_only_with_leaf_parent_reduction, novac1_algo]
 
     #algorithm = novac1_algo
 
@@ -87,18 +89,28 @@ def main():
     # lambda_array = [1.9]
     #results = [run_graph(algorithms, int(n), 1, iterations) for n in n_array]
     # results = [run_graph(algorithms, n, c, iterations) for c in lambda_array]
-    results = run_graph(algorithms, n, c=1, iterations=iterations)
-    print(results)
+    results, result_list0,result_list1 = run_graph(algorithms, n, c=1, iterations=iterations)
+    result_list_subtrects = np.subtract(result_list0, result_list1)
+    print(results, result_list0,result_list1 ,result_list_subtrects)
 
     #columns = [algo.__name__ for algo in algorithms]
-    results = run_graph(algorithms, n, c=1, iterations=iterations)
+    #results = run_graph(algorithms, n, c=1, iterations=iterations)
     df = pd.DataFrame(results, index=[algo.__name__ for algo in algorithms])
-    # df = pd.DataFrame(results, lambda_array, columns)
+    df0 = pd.DataFrame(result_list0)
+    df1 = pd.DataFrame(result_list1)
+    df_subtrects = pd.DataFrame(result_list_subtrects)
+
+    #df = pd.DataFrame(results, lambda_array, columns)
     #df = pd.DataFrame(results, n_array, columns)
 
     # df.to_csv(f'./compare-results-n{n}.csv')
     # df.to_csv(f'./compare-results-running_n.csv')
     df.to_csv(f'./compare-results-tree-n{n}.csv')
+    df0.to_csv(f'./gea.csv')
+    df1.to_csv(f'./gea_r1.csv')
+    df_subtrects.to_csv(f'./diff.csv')
+
+
 
 
 if __name__ == '__main__':
